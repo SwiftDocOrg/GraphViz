@@ -19,6 +19,9 @@ public struct DOTEncoder {
     /// The delimiter used for attributes.
     public var attributeDelimiter: Delimiter?
 
+    /// Whether to omit node statements that comprise only an ID.
+    public var omitEmptyNodes: Bool = true
+
     public init() {}
 
     /// Encode the specified graph in DOT language.
@@ -88,7 +91,7 @@ public struct DOTEncoder {
             encode(node.attributes, in: graph)
         ].compactMap{ $0 }
 
-        if components.count == 1 {
+        if components.count == 1, omitEmptyNodes {
             return nil
         }
 
