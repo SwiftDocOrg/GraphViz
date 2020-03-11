@@ -5,9 +5,19 @@ import GraphViz
 /// For more information about the DOT language,
 /// see <https://www.graphviz.org/doc/info/lang.html>.
 public struct DOTEncoder {
+    public enum Delimiter: String {
+        case comma = ","
+        case semicolon = ";"
+    }
 
     /// The number of spaces used for indentation; `2` by default.
     public var indentation: Int = 2
+
+    /// The delimiter used for statements.
+    public var statementDelimiter: Delimiter?
+
+    /// The delimiter used for attributes.
+    public var attributeDelimiter: Delimiter?
 
     public init() {}
 
@@ -33,11 +43,7 @@ public struct DOTEncoder {
             lines.append(components.joined(separator: " "))
         }
 
-        do {
-            let attributes = graph.attributes.dictionaryValue.compactMapValues { ($0 as? DOTRepresentable)?.representation(in: graph) }
-            lines.append(contentsOf: attributes.map { "\($0.key)=\($0.value.escaped)" }.sorted().map { $0.indented(by: indentation) })
-        }
-
+        lines.append(contentsOf: encode(graph.attributes, in: graph).map{ $0.indented(by: indentation) })
         lines.append(contentsOf: graph.subgraphs.map { encode($0, in: graph).indented(by: indentation) })
         lines.append(contentsOf: graph.nodes.compactMap { encode($0, in: graph)?.indented(by: indentation) })
         lines.append(contentsOf: graph.edges.map { encode($0, in: graph).indented(by: indentation) })
@@ -51,36 +57,25 @@ public struct DOTEncoder {
     func encode(_ subgraph: Subgraph, in graph: Graph) -> String {
         var lines: [String] = []
 
-        do {
-            let attributes = subgraph.attributes.dictionaryValue.compactMapValues { ($0 as? DOTRepresentable)?.representation(in: graph) }
-            lines.append(contentsOf: attributes.map { "\($0.key)=\($0.value.escaped)" }.sorted().map { $0.indented(by: indentation) })
-        }
-
+        lines.append(contentsOf: encode(subgraph.attributes, in: graph).map{ $0.indented(by: indentation) })
         lines.append(contentsOf: subgraph.nodes.compactMap { encode($0, in: graph)?.indented(by: indentation) })
         lines.append(contentsOf: subgraph.edges.map { encode($0, in: graph).indented(by: indentation) })
 
         do {
             if lines.count < 2 {
-                return (
-                    CollectionOfOne("{") +
-                        lines.map { $0 + ";" } +
-                        CollectionOfOne("}")
-                    ).joined(separator: " ")
+                return ["{", lines.first, "}"].compactMap{ $0 }.joined(separator: " ")
             } else {
                 lines = lines.map { $0.indented(by: indentation) }
 
-                var components: [String] = [
-                    "subgraph"
-                ]
+                let start = [
+                    "subgraph",
+                    subgraph.id,
+                    "{"
+                ].compactMap { $0 }.joined(separator: " ")
+                let end = "}"
 
-                if let id = subgraph.id {
-                    components.append(id)
-                }
-
-                components.append("{")
-
-                lines.prepend(components.joined(separator: " "))
-                lines.append("}")
+                lines.prepend(start)
+                lines.append(end)
             }
         }
 
@@ -88,33 +83,62 @@ public struct DOTEncoder {
     }
 
     func encode(_ node: Node, in graph: Graph) -> String? {
-        var components: [String] = [
-            node.id
-        ]
+        let components: [String] = [
+            node.id,
+            encode(node.attributes, in: graph)
+        ].compactMap{ $0 }
 
-        do {
-            let attributes = node.attributes.dictionaryValue.compactMapValues { ($0 as? DOTRepresentable)?.representation(in: graph) }
-            guard !attributes.isEmpty else { return nil } // TODO: configurable
-            components.append("[\(attributes.map { "\($0.key)=\($0.value.escaped)" }.sorted().joined(separator: " "))]")
+        if components.count == 1 {
+            return nil
         }
 
-        return components.joined(separator: " ")
+        var statement = components.joined(separator: " ")
+        if let delimiter = statementDelimiter {
+            statement += delimiter.rawValue
+        }
+
+        return statement
     }
 
     func encode(_ edge: Edge, in graph: Graph) -> String {
-        var components: [String] = [
+        let components: [String] = [
             edge.from.escaped,
             (edge.direction ?? (graph.directed ? .forward : .none)).rawValue,
-            edge.to.escaped
-        ]
+            edge.to.escaped,
+            encode(edge.attributes, in: graph)
+        ].compactMap{ $0 }
 
-        do {
-            let attributes = edge.attributes.dictionaryValue.compactMapValues { ($0 as? DOTRepresentable)?.representation(in: graph) }
-            if !attributes.isEmpty {
-                components.append("[\(attributes.map { "\($0.key)=\($0.value.escaped)" }.sorted().joined(separator: " "))]")
-            }
+        var statement = components.joined(separator: " ")
+        if let delimiter = statementDelimiter {
+            statement += delimiter.rawValue
         }
 
-        return components.joined(separator: " ")
+        return statement
+    }
+
+    func encode(_ attributes: Graph.Attributes, in graph: Graph) -> [String] {
+        guard let encoded = encode(attributes.dictionaryValue, in: graph) else { return [] }
+        return encoded.map { $0 + (statementDelimiter?.rawValue ?? "") }
+    }
+
+    func encode(_ attributes: Subgraph.Attributes, in graph: Graph) -> [String] {
+        guard let encoded = encode(attributes.dictionaryValue, in: graph) else { return [] }
+        return encoded.map { $0 + (statementDelimiter?.rawValue ?? "") }
+    }
+
+    func encode(_ attributes: Node.Attributes, in graph: Graph) -> String? {
+        guard let encoded = encode(attributes.dictionaryValue, in: graph) else { return nil }
+        return "[\(encoded.joined(separator: attributeDelimiter?.rawValue ?? " "))]"
+    }
+
+    func encode(_ attributes: Edge.Attributes, in graph: Graph) -> String? {
+        guard let encoded = encode(attributes.dictionaryValue, in: graph) else { return nil }
+        return "[\(encoded.joined(separator: attributeDelimiter?.rawValue ?? " "))]"
+    }
+
+    private func encode(_ attributes: [String: Any], in graph: Graph) -> [String]? {
+        let attributes = attributes.compactMapValues { ($0 as? DOTRepresentable)?.representation(in: graph) }
+        guard !attributes.isEmpty else { return nil }
+        return attributes.map { "\($0.key)=\($0.value.escaped)" }.sorted()
     }
 }
