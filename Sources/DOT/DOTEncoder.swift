@@ -22,7 +22,17 @@ public struct DOTEncoder {
     /// Whether to omit node statements that comprise only an ID.
     public var omitEmptyNodes: Bool = true
 
+    private static let shared = DOTEncoder()
+
+    /// Creates a new DOT encoder.
     public init() {}
+
+    /// Encode the specified graph in DOT language.
+    /// - Parameter graph: The graph to represent.
+    /// - Returns: The DOT language representation.
+    public static func encode(_ graph: Graph) -> String {
+        return shared.encode(graph)
+    }
 
     /// Encode the specified graph in DOT language.
     /// - Parameter graph: The graph to represent.
