@@ -1,6 +1,9 @@
 import GraphViz
 
 /// Creates DOT language representations of GraphViz graphs.
+///
+/// For more information about the DOT language,
+/// see <https://www.graphviz.org/doc/info/lang.html>.
 public struct DOTEncoder {
 
     /// The number of spaces used for indentation; `2` by default.
