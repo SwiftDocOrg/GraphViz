@@ -65,6 +65,8 @@ extension Color: DOTRepresentable {
             return String(format: "%1.3f %1.3 %1.3", hue, saturation, value)
             //        case .gradient(style: let style, angle: let angle, colors: let colors):
             //            fatalError() // TODO
+        case let .custom(string):
+            return string
         }
     }
 }

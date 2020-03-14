@@ -16,6 +16,13 @@ public indirect enum Color: Hashable {
     case rgba(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8)
     case hsv(hue: Double, saturation: Double, value: Double)
 //    case gradient(style: GradientStyle, angle: Double, colors: KeyValuePairs<Double, Color>)
+    case custom(String)
+}
+
+extension Color: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        self = .custom(value)
+    }
 }
 
 /**
