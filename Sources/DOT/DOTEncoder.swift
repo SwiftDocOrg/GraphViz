@@ -1,4 +1,4 @@
-import GraphViz
+@_exported import GraphViz
 
 /// Creates DOT language representations of GraphViz graphs.
 ///
