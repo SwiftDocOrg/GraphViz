@@ -29,6 +29,22 @@ public struct Graph: Equatable {
     /// Edges contained by the graph.
     public private(set) var edges: [Edge] = []
 
+    /**
+     Returns whether the graph is empty.
+
+     A graph is considered to be empty if it
+     has no subgraphs,
+     has no edges,
+     has no nodes with attributes, and
+     has no attributes itself.
+     */
+    public var isEmpty: Bool {
+        return subgraphs.isEmpty &&
+                edges.isEmpty &&
+                attributes.dictionaryValue.isEmpty &&
+                nodes.filter { !$0.attributes.dictionaryValue.isEmpty }.isEmpty
+    }
+
     public mutating func append(_ subgraph: Subgraph) {
         subgraphs.append(subgraph)
     }

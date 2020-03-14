@@ -10,6 +10,7 @@ final class GraphTests: XCTestCase {
 
         let expected = "graph { }"
 
+        XCTAssertTrue(graph.isEmpty)
         XCTAssertEqual(encoder.encode(graph), expected)
     }
 
@@ -18,6 +19,7 @@ final class GraphTests: XCTestCase {
 
         let expected = "strict digraph { }"
 
+        XCTAssertTrue(graph.isEmpty)
         XCTAssertEqual(encoder.encode(graph), expected)
     }
 
@@ -37,6 +39,7 @@ final class GraphTests: XCTestCase {
         }
         """
 
+        XCTAssertFalse(graph.isEmpty)
         XCTAssertEqual(encoder.encode(graph), expected)
     }
 
@@ -60,6 +63,7 @@ final class GraphTests: XCTestCase {
         }
         """
 
+        XCTAssertFalse(graph.isEmpty)
         XCTAssertEqual(encoder.encode(graph), expected)
     }
 }

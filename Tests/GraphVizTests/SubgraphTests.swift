@@ -11,6 +11,7 @@ final class SubgraphTests: XCTestCase {
 
         let expected = "{ }"
 
+        XCTAssertTrue(subgraph.isEmpty)
         XCTAssertEqual(encoder.encode(subgraph, in: graph), expected)
     }
 }

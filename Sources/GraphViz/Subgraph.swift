@@ -12,6 +12,20 @@ public struct Subgraph: Hashable {
 
     public private(set) var attributes: Attributes = Attributes()
 
+    /**
+     Returns whether the subgraph is empty.
+
+     A subgraph is considered to be empty if it
+     has no edges,
+     has no nodes with attributes, and
+     has no attributes itself.
+     */
+    public var isEmpty: Bool {
+        return edges.isEmpty &&
+                attributes.dictionaryValue.isEmpty &&
+                nodes.filter { !$0.attributes.dictionaryValue.isEmpty }.isEmpty
+    }
+
     public mutating func append(_ node: @autoclosure () -> Node) {
         nodes.append(node())
     }
