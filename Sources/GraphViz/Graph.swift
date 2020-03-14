@@ -33,12 +33,30 @@ public struct Graph: Equatable {
         subgraphs.append(subgraph)
     }
 
+    public mutating func append<S>(contentsOf subgraphs: S) where S.Element == Subgraph, S: Sequence {
+        for subgraph in subgraphs {
+            self.subgraphs.append(subgraph)
+        }
+    }
+
     public mutating func append(_ node: Node) {
         nodes.append(node)
     }
 
+    public mutating func append<S>(contentsOf nodes: S) where S.Element == Node, S: Sequence {
+        for node in nodes {
+            self.nodes.append(node)
+        }
+    }
+
     public mutating func append(_ edge:Edge) {
         edges.append(edge)
+    }
+
+    public mutating func append<S>(contentsOf edges: S) where S.Element == Edge, S: Sequence {
+        for edge in edges {
+            self.edges.append(edge)
+        }
     }
 
     public private(set) var attributes: Attributes = Attributes()
