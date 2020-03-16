@@ -180,6 +180,12 @@ extension Node {
         @Attribute("imagepos")
         public var imagePosition: ImagePosition?
 
+        // MARK: - Link Attributes
+
+        ///
+        @Attribute("URL")
+        public var url: URL?
+
         // MARK: - Label Attributes
 
         @Attribute("label")
@@ -341,6 +347,7 @@ extension Node.Attributes {
             _strokeWidth,
             _imageURL,
             _imagePosition,
+            _url,
             _label,
             _fontName,
             _fontSize,

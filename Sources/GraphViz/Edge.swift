@@ -239,7 +239,7 @@ extension Edge {
         // MARK: - Link Attributes
 
         ///
-        @Attribute("href")
+        @Attribute("URL")
         public var url: URL?
 
         /// Tooltip annotation attached to the non-label part of an edge. This is used only if the edge has a URL or edgeURL attribute.
@@ -399,8 +399,8 @@ extension Edge.Attributes {
             _exteriorLabel,
             _exteriorLabelPosition,
             _decorate,
-            _noJustify,
             _url,
+            _noJustify,
             _tooltip,
             _head,
             _headPort,

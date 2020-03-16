@@ -1,3 +1,5 @@
+import struct Foundation.URL
+
 @dynamicMemberLookup
 public struct Subgraph: Hashable {
     public var id: String?
@@ -138,6 +140,12 @@ extension Subgraph {
             }
         }
 
+        // MARK: - Link Attributes
+
+        ///
+        @Attribute("URL")
+        public var url: URL?
+
         // MARK: - Label Attributes
 
         /// > The name of the used font. (System dependend)
@@ -233,6 +241,7 @@ extension Subgraph.Attributes {
             _backgroundColor,
             _borderColor,
             _borderWidth,
+            _url,
             _fontName,
             _fontSize,
             _textColor,

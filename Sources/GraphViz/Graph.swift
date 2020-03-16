@@ -437,6 +437,12 @@ extension Graph {
         @Attribute("bgcolor")
         public var backgroundColor: Color?
 
+        // MARK: - Link Attributes
+
+        ///
+        @Attribute("URL")
+        public var url: URL?
+
 
         // MARK: - Label Attributes
 
@@ -896,6 +902,7 @@ extension Graph.Attributes {
     var arrayValue: [Attributable] {
         return [
             _aspectRatio,
+            _url,
             _backgroundColor,
             _boundingBox,
             _center,
