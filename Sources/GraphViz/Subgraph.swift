@@ -70,6 +70,7 @@ extension Subgraph {
         case rounded
         case filled(Color)
         case striped([Color])
+        case compound([Style])
     }
 
     public struct Attributes: Hashable {
