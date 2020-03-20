@@ -37,7 +37,7 @@ final class GraphBuilderTests: XCTestCase {
 
         let expected = """
         graph {
-          size=8.5,11
+          size="8.5,11"
           a [bgcolor=blue]
         }
         """
@@ -54,7 +54,7 @@ final class GraphBuilderTests: XCTestCase {
         let expected = """
         graph {
           center=true
-          size=8.5,11
+          size="8.5,11"
         }
         """
 

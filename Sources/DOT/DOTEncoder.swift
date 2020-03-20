@@ -48,7 +48,7 @@ public struct DOTEncoder {
             components.append(graph.directed ? "digraph" : "graph")
 
             if let id = graph.id {
-                components.append(id)
+                components.append(escape(id))
             }
 
             components.append("{")
@@ -80,15 +80,14 @@ public struct DOTEncoder {
             } else {
                 lines = lines.map { $0.indented(by: indentation) }
 
-                let start = [
-                    "subgraph",
-                    subgraph.id,
-                    "{"
-                ].compactMap { $0 }.joined(separator: " ")
-                let end = "}"
+                var components = ["subgraph"]
+                if let id = subgraph.id {
+                    components.append(escape(id))
+                }
+                components.append("{")
 
-                lines.prepend(start)
-                lines.append(end)
+                lines.prepend(components.joined(separator: " "))
+                lines.append("}")
             }
         }
 
@@ -97,7 +96,7 @@ public struct DOTEncoder {
 
     func encode(_ node: Node, in graph: Graph) -> String? {
         let components: [String] = [
-            node.id,
+            escape(node.id),
             encode(node.attributes, in: graph)
         ].compactMap{ $0 }
 
@@ -115,9 +114,9 @@ public struct DOTEncoder {
 
     func encode(_ edge: Edge, in graph: Graph) -> String {
         let components: [String] = [
-            edge.from.escaped,
+            escape(edge.from),
             (edge.direction ?? (graph.directed ? .forward : .none)).rawValue,
-            edge.to.escaped,
+            escape(edge.to),
             encode(edge.attributes, in: graph)
         ].compactMap{ $0 }
 
@@ -152,6 +151,32 @@ public struct DOTEncoder {
     private func encode(_ attributes: [String: Any], in graph: Graph) -> [String]? {
         let attributes = attributes.compactMapValues { ($0 as? DOTRepresentable)?.representation(in: graph) }
         guard !attributes.isEmpty else { return nil }
-        return attributes.map { "\($0.key)=\($0.value.escaped)" }.sorted()
+        return attributes.map { "\(escape($0.key))=\(escape($0.value))" }.sorted()
+    }
+
+    private func escape(_ string: String) -> String {
+        var escapedString = string.replacingOccurrences(of: "\"", with: #"\""#)
+        if string.contains(where: { !$0.isLetter && !$0.isNumber && $0 != "_" }) {
+            escapedString = #""\#(escapedString)""#
+        }
+
+        return escapedString
     }
 }
+
+// MARK: -
+
+fileprivate extension Array {
+    mutating func prepend(_ newElement: Element) {
+        self.insert(newElement, at: startIndex)
+    }
+}
+
+fileprivate extension String {
+    func indented(by spaces: Int = 2) -> String {
+        return split(separator: "\n", omittingEmptySubsequences: false)
+                .map { String(repeating: " ", count: spaces) + $0 }
+                .joined(separator: "\n")
+    }
+}
+
