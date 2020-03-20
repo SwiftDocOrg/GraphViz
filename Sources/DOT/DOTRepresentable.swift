@@ -130,7 +130,16 @@ extension Graph.Smoothing: DOTRepresentable {}
 
 extension Graph.InitialNodeLayoutStrategy: DOTRepresentable {
     func representation(in graph: Graph) -> String? {
-        fatalError("unimplemented") // FIXME
+        switch self {
+        case .regular:
+            return "regular"
+        case .`self`:
+            return "self"
+        case .random(seed: let seed?):
+            return "random\(seed)"
+        case .random(_):
+            return "random"
+        }
     }
 }
 

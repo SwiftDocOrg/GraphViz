@@ -225,7 +225,8 @@ extension Graph {
      Note that input positions, specified by a node's pos attribute, are only used when the style is "random"
      */
     public enum InitialNodeLayoutStrategy: Hashable {
-        case normal
+        case regular
+        case `self`
         case random(seed: Int? = nil)
     }
 
