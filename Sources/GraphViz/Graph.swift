@@ -40,9 +40,9 @@ public struct Graph: Equatable {
      */
     public var isEmpty: Bool {
         return subgraphs.isEmpty &&
-                edges.isEmpty &&
-                attributes.dictionaryValue.isEmpty &&
-                nodes.filter { !$0.attributes.dictionaryValue.isEmpty }.isEmpty
+            edges.isEmpty &&
+            attributes.dictionaryValue.isEmpty &&
+            nodes.filter { !$0.attributes.dictionaryValue.isEmpty }.isEmpty
     }
 
     public mutating func append(_ subgraph: Subgraph) {
@@ -426,6 +426,10 @@ extension Graph {
         public var backgroundColor: Color?
 
         // MARK: - Link Attributes
+
+        ///
+        @Attribute("href")
+        public var href: String?
 
         ///
         @Attribute("URL")
@@ -890,7 +894,6 @@ extension Graph.Attributes {
     var arrayValue: [Attributable] {
         return [
             _aspectRatio,
-            _url,
             _backgroundColor,
             _boundingBox,
             _center,
@@ -908,6 +911,7 @@ extension Graph.Attributes {
             _forceLabels,
             _generateDirectedEdgeConstraints,
             _guideBoxLocation,
+            _href,
             _imagePath,
             _initialNodeLayoutStrategy,
             _inputScale,
@@ -956,6 +960,7 @@ extension Graph.Attributes {
             _stylesheetURL,
             _textColor,
             _trueColor,
+            _url,
             _useMOSEK,
             _useNewRankingAlgorithm,
             _viewport,

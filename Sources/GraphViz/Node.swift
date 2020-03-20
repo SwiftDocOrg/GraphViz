@@ -184,6 +184,10 @@ extension Node {
         // MARK: - Link Attributes
 
         ///
+        @Attribute("href")
+        public var href: String?
+
+        ///
         @Attribute("URL")
         public var url: URL?
 
@@ -348,6 +352,7 @@ extension Node.Attributes {
             _strokeWidth,
             _imageURL,
             _imagePosition,
+            _href,
             _url,
             _label,
             _fontName,

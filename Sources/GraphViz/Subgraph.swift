@@ -144,6 +144,10 @@ extension Subgraph {
         // MARK: - Link Attributes
 
         ///
+        @Attribute("href")
+        public var href: String?
+
+        ///
         @Attribute("URL")
         public var url: URL?
 
@@ -242,6 +246,7 @@ extension Subgraph.Attributes {
             _backgroundColor,
             _borderColor,
             _borderWidth,
+            _href,
             _url,
             _fontName,
             _fontSize,

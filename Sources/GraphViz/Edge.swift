@@ -239,6 +239,10 @@ extension Edge {
         // MARK: - Link Attributes
 
         ///
+        @Attribute("href")
+        public var href: String?
+
+        ///
         @Attribute("URL")
         public var url: URL?
 
@@ -399,6 +403,7 @@ extension Edge.Attributes {
             _exteriorLabel,
             _exteriorLabelPosition,
             _decorate,
+            _href,
             _url,
             _noJustify,
             _tooltip,
