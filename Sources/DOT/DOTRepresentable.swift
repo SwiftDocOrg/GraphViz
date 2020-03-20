@@ -118,11 +118,7 @@ extension Graph.Orientation: DOTRepresentable {}
 
 extension Graph.ClusterMode: DOTRepresentable {}
 
-extension Graph.PackingMode: DOTRepresentable {
-    func representation(in graph: Graph) -> String? {
-        fatalError("unimplemented") // FIXME
-    }
-}
+extension Graph.PackingMode: DOTRepresentable {}
 
 extension Graph.Spline: DOTRepresentable {}
 
