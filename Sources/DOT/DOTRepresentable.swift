@@ -190,7 +190,28 @@ extension Node.Size: DOTRepresentable {
 
 extension Node.Style: DOTRepresentable {
     func representation(in graph: Graph) -> String? {
-        fatalError("unimplemented") // FIXME
+        switch self {
+        case .solid:
+            return "solid"
+        case .dashed:
+            return "dashed"
+        case .dotted:
+            return "dotted"
+        case .bold:
+            return "bold"
+        case .rounded:
+            return "rounded"
+        case .diagonals:
+            return "diagonals"
+        case .filled(_):
+            return "filled"
+        case .striped(_):
+            return "striped"
+        case .wedged(_):
+            return "wedged"
+        case .compound(let styles):
+            return styles.compactMap { $0.representation(in: graph) }.joined(separator: ",")
+        }
     }
 }
 

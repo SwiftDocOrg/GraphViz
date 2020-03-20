@@ -70,6 +70,7 @@ extension Node {
         case filled(Color)
         case striped([Color])
         case wedged([Color])
+        case compound([Style])
     }
 
     public struct Attributes: Hashable {
