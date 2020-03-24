@@ -27,4 +27,3 @@ final class RenderingTests: XCTestCase {
         XCTAssertGreaterThan(svg.count, 100)
     }
 }
-

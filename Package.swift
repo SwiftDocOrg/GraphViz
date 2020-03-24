@@ -12,7 +12,7 @@ let package = Package(
             targets: ["GraphViz", "DOT"]),
         .library(
             name: "GraphVizBuilder",
-            targets: ["GraphVizBuilder"]),
+            targets: ["GraphVizBuilder"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -35,6 +35,6 @@ let package = Package(
             dependencies: ["GraphViz", "DOT"]),
         .testTarget(
             name: "GraphVizBuilderTests",
-            dependencies: ["GraphViz", "DOT", "GraphVizBuilder"]),
+            dependencies: ["GraphViz", "DOT", "GraphVizBuilder"])
     ]
 )

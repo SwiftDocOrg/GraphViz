@@ -128,7 +128,6 @@ extension Edge {
 
         // MARK: - Drawing Attributes
 
-
         /**
          Set style information for components of the graph. For cluster subgraphs, if style="filled", the cluster box's background is filled.
          If the default style attribute has been set for a component, an individual component can use style="" to revert to the normal default. For example, if the graph has
@@ -158,7 +157,6 @@ extension Edge {
         /// Multiplicative scale factor for arrowheads.
         @Attribute("arrowsize")
         public var arrowSize: Double?
-
 
         // MARK: - Label Attributes
 
@@ -204,8 +202,6 @@ extension Edge {
         //        @Attribute("labelheight")
         //        public var labelHeight: Double?
         //
-
-
 
         /// > If true, allows edge labels to be less constrained in position. In particular, it may appear on top of other edges
         @Attribute("labelfloat")
@@ -295,7 +291,6 @@ extension Edge {
         @Attribute("lhead")
         public var logicalHead: String?
 
-
         /**
          Edges with the same head and the same samehead value are aimed at the same point on the head. This has no effect on loops. Each node can have at most 5 unique samehead values. See limitation.
          >     dot only
@@ -356,7 +351,6 @@ extension Edge {
 
         @Attribute("taillabel")
         public var tailLabel: String?
-
 
         // MARK: - Layout-specific Attributes
 

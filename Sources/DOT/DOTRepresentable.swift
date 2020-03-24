@@ -137,7 +137,7 @@ extension Graph.InitialNodeLayoutStrategy: DOTRepresentable {
             return "self"
         case .random(seed: let seed?):
             return "random\(seed)"
-        case .random(_):
+        case .random:
             return "random"
         }
     }
@@ -166,9 +166,9 @@ extension Subgraph.Style: DOTRepresentable {
             return "bold"
         case .rounded:
             return "rounded"
-        case .filled(_):
+        case .filled:
             return "filled"
-        case .striped(_):
+        case .striped:
             return "striped"
         case .compound(let styles):
             return styles.compactMap { $0.representation(in: graph) }.joined(separator: ",")
@@ -203,11 +203,11 @@ extension Node.Style: DOTRepresentable {
             return "rounded"
         case .diagonals:
             return "diagonals"
-        case .filled(_):
+        case .filled:
             return "filled"
-        case .striped(_):
+        case .striped:
             return "striped"
-        case .wedged(_):
+        case .wedged:
             return "wedged"
         case .compound(let styles):
             return styles.compactMap { $0.representation(in: graph) }.joined(separator: ",")
@@ -226,4 +226,3 @@ extension Edge.Arrow: DOTRepresentable {
 extension Edge.Port: DOTRepresentable {}
 
 extension Edge.Style: DOTRepresentable {}
-
