@@ -77,11 +77,13 @@ extension Ordering: DOTRepresentable {}
 
 extension Point: DOTRepresentable {
     func representation(in graph: Graph) -> String? {
-        let last: CVarArg = fixed ? "!" : ""
-        if let z = z {
-            return String(format: "%g,%g,%g%s", x, y, z, last)
-        } else {
-            return String(format: "%g,%g%s", x, y, last)
+        let last: String = fixed ? "!" : ""
+        return last.withCString {
+            if let z = z {
+                return String(format: "%g,%g,%g%s", x, y, z, $0)
+            } else {
+                return String(format: "%g,%g%s", x, y, $0)
+            }
         }
     }
 }
