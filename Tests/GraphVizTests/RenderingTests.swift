@@ -1,6 +1,15 @@
 import XCTest
 @testable import GraphViz
 @testable import DOT
+import SnapshotTesting
+
+#if os(macOS)
+    typealias Image = NSImage
+#elseif os(iOS) || os(tvOS)
+    typealias Image = UIImage
+#else
+    #error("platform not supported")
+#endif
 
 final class RenderingTests: XCTestCase {
     let encoder = DOTEncoder()
@@ -25,5 +34,16 @@ final class RenderingTests: XCTestCase {
 
         XCTAssert(svg.starts(with: "<?xml"))
         XCTAssertGreaterThan(svg.count, 100)
+    }
+
+    func testSimpleGraphRenderingToPNG() throws {
+        let data = try graph.render(using: .dot, to: .png)
+
+        guard let image = Image(data: data) else {
+            XCTFail("Could not convert data to NSImage")
+            return
+        }
+
+        assertSnapshot(matching: image, as: .image)
     }
 }
