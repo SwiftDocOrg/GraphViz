@@ -56,7 +56,7 @@ public struct DOTEncoder {
             lines.append(components.joined(separator: " "))
         }
 
-        lines.append(contentsOf: encode(graph.attributes, in: graph).map{ $0.indented(by: indentation) })
+        lines.append(contentsOf: encode(graph.attributes, in: graph).map { $0.indented(by: indentation) })
         lines.append(contentsOf: graph.subgraphs.map { encode($0, in: graph).indented(by: indentation) })
         lines.append(contentsOf: graph.nodes.compactMap { encode($0, in: graph)?.indented(by: indentation) })
         lines.append(contentsOf: graph.edges.map { encode($0, in: graph).indented(by: indentation) })
@@ -70,13 +70,13 @@ public struct DOTEncoder {
     func encode(_ subgraph: Subgraph, in graph: Graph) -> String {
         var lines: [String] = []
 
-        lines.append(contentsOf: encode(subgraph.attributes, in: graph).map{ $0.indented(by: indentation) })
+        lines.append(contentsOf: encode(subgraph.attributes, in: graph).map { $0.indented(by: indentation) })
         lines.append(contentsOf: subgraph.nodes.compactMap { encode($0, in: graph)?.indented(by: indentation) })
         lines.append(contentsOf: subgraph.edges.map { encode($0, in: graph).indented(by: indentation) })
 
         do {
             if lines.count < 2 {
-                return ["{", lines.first, "}"].compactMap{ $0 }.joined(separator: " ")
+                return ["{", lines.first, "}"].compactMap { $0 }.joined(separator: " ")
             } else {
                 lines = lines.map { $0.indented(by: indentation) }
 
@@ -98,7 +98,7 @@ public struct DOTEncoder {
         let components: [String] = [
             escape(node.id),
             encode(node.attributes, in: graph)
-        ].compactMap{ $0 }
+        ].compactMap { $0 }
 
         if components.count == 1, omitEmptyNodes {
             return nil
@@ -118,7 +118,7 @@ public struct DOTEncoder {
             (edge.direction ?? (graph.directed ? .forward : .none)).rawValue,
             escape(edge.to),
             encode(edge.attributes, in: graph)
-        ].compactMap{ $0 }
+        ].compactMap { $0 }
 
         var statement = components.joined(separator: " ")
         if let delimiter = statementDelimiter {
@@ -179,4 +179,3 @@ fileprivate extension String {
                 .joined(separator: "\n")
     }
 }
-

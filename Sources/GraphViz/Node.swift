@@ -84,7 +84,6 @@ extension Node {
         @Attribute("ordering")
         public var ordering: Ordering?
 
-
         /**
          If packmode indicates an array packing, this attribute specifies an insertion order among the components, with smaller values inserted first.
          > GCN    int    0    0
@@ -152,11 +151,6 @@ extension Node {
         //        /// http://graphviz.org/faq/#FaqOverlays
         //        var layers: [String]?
 
-
-
-
-
-
         /**
          Gives the name of a file containing an image to be displayed inside a node. The image file must be in one of the recognized formats, typically JPEG, PNG, GIF, BMP, SVG or Postscript, and be able to be converted into the desired output format.
          The file must contain the image size information. This is usually trivially true for the bitmap formats. For PostScript, the file must contain a line starting with %%BoundingBox: followed by four integers specifying the lower left x and y coordinates and the upper right x and y coordinates of the bounding box for the image, the coordinates being in points. An SVG image file must contain width and height attributes, typically as part of the svg element. The values for these should have the form of a floating point number, followed by optional units, e.g., width="76pt". Recognized units are in, px, pc, pt, cm and mm for inches, pixels, picas, points, centimeters and millimeters, respectively. The default unit is points.
@@ -208,7 +202,6 @@ extension Node {
         @Attribute("fontcolor")
         public var textColor: Color?
 
-
         /**
          By default, the justification of multi-line labels is done within the largest context that makes sense. Thus, in the label of a polygonal node, a left-justified line will align with the left side of the node (shifted by the prescribed margin). In record nodes, left-justified line will line up with the left side of the enclosing column of fields. If nojustify is "true", multi-line labels will be justified in the context of itself. For example, if the attribute is set, the first label line is long, and the second is shorter and left-justified, the second will align with the left-most character in the first line, regardless of how large the node might be.
          */
@@ -236,8 +229,6 @@ extension Node {
         //        @Attribute("peripheries")
         //        public var peripheries: Int?
 
-
-
         // TODO:
         //        /**
         //         Rectangles for fields of records, in points.
@@ -252,15 +243,11 @@ extension Node {
         //        @Attribute("regular")
         //        public var regular: Bool?
 
-
-
         //        /**
         //         If the input graph defines this attribute, the node is polygonal, and output is dot or xdot, this attribute provides the coordinates of the vertices of the node's polygon, in inches. If the node is an ellipse or circle, the samplepoints attribute affects the output.
         //         >     N    pointList            write only
         //         */
         //        public var verticies: [Point]?
-
-
 
         // MARK: - Layout-specific Attributes
 
@@ -280,7 +267,6 @@ extension Node {
          */
         @Attribute("showboxes")
         public var guideBoxLocation: Location?
-
 
         // MARK: dot / neato
 

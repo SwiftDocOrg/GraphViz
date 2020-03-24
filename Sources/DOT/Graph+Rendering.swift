@@ -26,7 +26,7 @@ extension Graph {
         task.standardInput = inputPipe
 
         var data = Data()
-        
+
         let outputPipe = Pipe()
         defer { outputPipe.fileHandleForReading.closeFile() }
         outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
@@ -45,4 +45,3 @@ extension Graph {
         return data
     }
 }
-

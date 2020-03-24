@@ -9,7 +9,7 @@ public struct Graph: Equatable {
     public var strict: Bool
 
     /// The id of the graph, is any.
-    public var id: String? = nil
+    public var id: String?
 
     /// Creates a graph.
     /// - Parameters:
@@ -65,7 +65,7 @@ public struct Graph: Equatable {
         }
     }
 
-    public mutating func append(_ edge:Edge) {
+    public mutating func append(_ edge: Edge) {
         edges.append(edge)
     }
 
@@ -292,7 +292,6 @@ extension Graph {
         @Attribute("rank")
         public var clusterRank: ClusterMode?
 
-
         /// If true, use edge concentrators. This merges multiedges into a single edge and causes partially parallel edges to share part of their paths. The latter feature is not yet available outside of dot.
         /// > concentrate    G    bool    false
         @Attribute("concentrate")
@@ -343,7 +342,6 @@ extension Graph {
          */
         @Attribute("minlen")
         public var nodeSeparation: Double?
-
 
         // MARK: - Drawing Attributes
 
@@ -435,7 +433,6 @@ extension Graph {
         @Attribute("URL")
         public var url: URL?
 
-
         // MARK: - Label Attributes
 
         /**
@@ -449,7 +446,6 @@ extension Graph {
          */
         @Attribute("label")
         public var label: String?
-
 
         /**
          If true, all xlabel attributes are placed, even if there is some overlap with nodes or other labels.
@@ -482,9 +478,6 @@ extension Graph {
         @Attribute("nojustify")
         public var noJustify: Bool?
 
-
-
-
         // TODO:
         //        /**
         //         Specifies margin to leave around nodes when removing node overlap. This guarantees a minimal non-zero distance between nodes.
@@ -497,8 +490,6 @@ extension Graph {
         //         addPoint    +4        not dot
         //         */
         //        public var sep: Double?
-
-
 
         /**
          showboxes
@@ -533,7 +524,6 @@ extension Graph {
          */
         @Attribute("viewport")
         public var viewport: Viewport?
-
 
         // MARK: Layout-specific Attributes
 
@@ -618,7 +608,6 @@ extension Graph {
          */
         @Attribute("ranksep")
         public var rankSeparation: Double?
-
 
         // MARK: not dot
 
@@ -856,7 +845,6 @@ extension Graph {
          */
         @Attribute("fontpath")
         public var fontPath: URL?
-
 
         /**
          Allows user control of how basic fontnames are represented in SVG output. If fontnames is undefined or "svg", the output will try to use known SVG fontnames. For example, the default font "Times-Roman" will be mapped to the basic SVG font "serif". This can be overridden by setting fontnames to "ps" or "gd". In the former case, known PostScript font names such as "Times-Roman" will be used in the output. In the latter case, the fontconfig font conventions are used. Thus, "Times-Roman" would be treated as "Nimbus Roman No9 L". These last two options are useful with SVG viewers that support these richer fontname spaces.

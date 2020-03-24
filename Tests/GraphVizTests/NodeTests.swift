@@ -8,7 +8,7 @@ final class NodeTests: XCTestCase {
 
     func testNodeWithoutAttributes() {
         let node = Node("a")
-        
+
         XCTAssertNil(encoder.encode(node, in: graph))
     }
 

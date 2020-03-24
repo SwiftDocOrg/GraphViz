@@ -34,7 +34,7 @@ final class AttributesTests: XCTestCase {
             XCTAssert(represented.contains(attribute), "missing \(attribute)")
         }
     }
-    
+
     func testEdgeAttributesCompleteness() {
         let edge = Edge(from: "a", to: "b")
 

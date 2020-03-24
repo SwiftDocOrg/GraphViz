@@ -11,13 +11,13 @@ extension Node {
 extension Node {
     public static func --> (lhs: Node, rhs: [Node]) -> Subgraph {
         var subgraph = Subgraph()
-        
+
         subgraph.append(lhs)
-        
+
         for node in rhs {
             subgraph.append(Edge(from: lhs, to: node, direction: .forward))
         }
-        
+
         return subgraph
     }
 }

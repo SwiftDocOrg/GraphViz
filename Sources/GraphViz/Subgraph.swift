@@ -177,7 +177,6 @@ extension Subgraph {
 
         // MARK: - Attributes Affecting Edges
 
-
         /**
          If false, the edge is not used in ranking the nodes.
 
@@ -192,7 +191,6 @@ extension Subgraph {
         @Attribute("decorate")
         var decorate: Bool?
 
-
         /// Multiplicative scale factor for arrowheads.
         @Attribute("arrowsize")
         var arrowSize: Double?
@@ -203,7 +201,6 @@ extension Subgraph {
         @Attribute("arrowtail")
         var tail: Edge.Arrow?
 
-
         //        /**
         //         Set number of peripheries used in polygonal shapes and cluster boundaries. Note that user-defined shapes are treated as a form of box shape, so the default peripheries value is 1 and the user-defined shape will be drawn in a bounding rectangle. Setting peripheries=0 will turn this off. Also, 1 is the maximum peripheries value for clusters.
         //         > NC    int    shape default(nodes)
@@ -211,8 +208,6 @@ extension Subgraph {
         //         */
         //        @Attribute("peripheries")
         //        public var peripheries: Int?
-
-
 
         // MARK: - Layout-specific Attributes
 
