@@ -3,6 +3,8 @@ import GraphViz
 @testable import DOT
 @testable import GraphVizBuilder
 
+// Workaround for "error: ambiguous reference to member '-->'" on Swift 5.1
+#if swift(>=5.2)
 final class SubgraphBuilderTests: XCTestCase {
     let encoder = DOTEncoder()
     let graph = Graph(directed: true, strict: true)
@@ -26,3 +28,4 @@ final class SubgraphBuilderTests: XCTestCase {
         XCTAssertEqual(encoder.encode(subgraph, in: graph), expected)
     }
 }
+#endif

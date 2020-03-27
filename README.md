@@ -1,18 +1,14 @@
 # GraphViz
 
-<!--
-Pending Swift 5.2 support
 ![CI][ci badge]
 [![Documentation][documentation badge]][documentation]
--->
 
 A Swift package for working with [GraphViz][graphviz].
 
-**This project is under active development and is not ready for production use.**
-
 ## Requirements
 
-- Swift 5.2+ 👈❗️
+- Swift 5.1+
+- GraphViz _(only for rendering)_
 
 ## Usage
 
@@ -69,6 +65,11 @@ let graph = Graph(directed: true) {
 }
 ```
 
+> **Note**:
+> Swift 5.1 may require explicit typecast expressions in order to
+> reconcile use of custom edge operators like `-->`.
+> (`error: ambiguous reference to member '-->'`)
+
 ## Installation
 
 ### Swift Package Manager
@@ -89,7 +90,27 @@ let package = Package(
 )
 ```
 
-Then run the `swift build` command to build your project.
+Add `GraphViz` as a dependency to your target(s):
+
+```swift
+targets: [
+.target(
+    name: "YourTarget",
+    dependencies: ["GraphViz"]),
+```
+
+To render graphs to SVG, PNG, and other formats,
+you must have GraphViz executables (e.g. `dot`) installed on your system
+and accessible from `$PATH`.
+You can install GraphViz from the command line:
+
+```terminal
+# macOS
+$ brew install graphviz
+
+# Linux (Ubuntu)
+$ sudo apt-get install graphviz
+```
 
 ## License
 

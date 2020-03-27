@@ -19,7 +19,11 @@ final class RenderingTests: XCTestCase {
         do {
             data = try graph.render(using: .dot, to: .svg)
         } catch {
+            #if swift(>=5.2)
             throw XCTSkip("Missing dot binary")
+            #else
+            return
+            #endif
         }
 
         let svg = String(data: data, encoding: .utf8)!
