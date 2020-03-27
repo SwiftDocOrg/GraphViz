@@ -2,6 +2,7 @@ import XCTest
 @testable import GraphViz
 @testable import DOT
 
+#if !os(Linux)
 final class RenderingTests: XCTestCase {
     let encoder = DOTEncoder()
     let graph: Graph = {
@@ -27,4 +28,4 @@ final class RenderingTests: XCTestCase {
         XCTAssertGreaterThan(svg.count, 100)
     }
 }
-
+#endif
