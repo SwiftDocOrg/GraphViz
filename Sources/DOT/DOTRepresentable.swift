@@ -78,9 +78,9 @@ extension Ordering: DOTRepresentable {}
 extension Point: DOTRepresentable {
     func representation(in graph: Graph) -> String? {
         if let z = z {
-            return String(format: "%g,%g,%g%s", x, y, z, fixed ? "!" : "")
+            return String(format: "%g,%g,%g", x, y, z) + (fixed ? "!" : "")
         } else {
-            return String(format: "%g,%g%s", x, y, fixed ? "!" : "")
+            return String(format: "%g,%g", x, y) + (fixed ? "!" : "")
         }
     }
 }
