@@ -54,10 +54,14 @@ extension Node {
         case botttomRight = "br"
     }
 
-    public enum Size: Hashable {
-        case automatic
+    public enum FixedSize: String, Hashable, ExpressibleByBooleanLiteral {
+        case `false`
+        case `true`
         case shape
-        case fixed(GraphViz.Size)
+
+        public init(booleanLiteral value: BooleanLiteralType) {
+            self = value ? .true : .false
+        }
     }
 
     public enum Style: Hashable {
@@ -99,15 +103,32 @@ extension Node {
         // MARK: - Drawing Attributes
 
         /**
+         Width of node, in inches. This is taken as the initial, minimum width of the node. If fixedsize is true, this will be the final width of the node. Otherwise, if the node label requires more width to fit, the node's width will be increased to contain the label. Note also that, if the output format is dot, the value given to width will be the final value.
+
+         If the node shape is regular, the width and height are made identical. In this case, if either the width or the height is set explicitly, that value is used. In this case, if both the width or the height are set explicitly, the maximum of the two values is used. If neither is set explicitly, the minimum of the two default values is used.
+         */
+        @Attribute("width")
+        public var width: Double?
+
+        /**
+         Height of node, in inches. This is taken as the initial, minimum height of the node. If fixedsize is true, this will be the final height of the node. Otherwise, if the node label requires more height to fit, the node's height will be increased to contain the label. Note also that, if the output format is dot, the value given to height will be the final value.
+
+         If the node shape is regular, the width and height are made identical. In this case, if either the width or the height is set explicitly, that value is used. In this case, if both the width or the height are set explicitly, the maximum of the two values is used. If neither is set explicitly, the minimum of the two default values is used.
+         */
+        @Attribute("height")
+        public var height: Double?
+
+        /**
          The node size set by height and width is kept fixed and not expanded to contain the text label.
 
          If false, the size of a node is determined by smallest width and height needed to contain its label and image, if any, with a margin specified by the margin attribute. The width and height must also be at least as large as the sizes specified by the width and height attributes, which specify the minimum values for these parameters.
+
          If true, the node size is specified by the values of the width and height attributes only and is not expanded to contain the text label. There will be a warning if the label (with margin) cannot fit within these limits.
 
          If the fixedsize attribute is set to shape, the width and height attributes also determine the size of the node shape, but the label can be much larger. Both the label and shape sizes are used when avoiding node overlap, but all edges to the node ignore the label and only contact the node shape. No warning is given if the label is too larg
          */
-        @Attribute("size")
-        public var size: Size?
+        @Attribute("fixedsize")
+        public var fixedSize: FixedSize?
 
         /// > The shape of a node.
         @Attribute("shape")
@@ -155,11 +176,6 @@ extension Node {
         //        /// Specifies a linearly ordered list of layer names attached to the graph The graph is then output in separate layers. Only those components belonging to the current output layer appear. For more information, see the page How to use drawing layers (overlays).
         //        /// http://graphviz.org/faq/#FaqOverlays
         //        var layers: [String]?
-
-
-
-
-
 
         /**
          Gives the name of a file containing an image to be displayed inside a node. The image file must be in one of the recognized formats, typically JPEG, PNG, GIF, BMP, SVG or Postscript, and be able to be converted into the desired output format.
@@ -349,7 +365,9 @@ extension Node.Attributes {
             _class,
             _ordering,
             _sortValue,
-            _size,
+            _width,
+            _height,
+            _fixedSize,
             _shape,
             _style,
             _backgroundColor,

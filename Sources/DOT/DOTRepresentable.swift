@@ -182,12 +182,6 @@ extension Node.Shape: DOTRepresentable {}
 
 extension Node.ImagePosition: DOTRepresentable {}
 
-extension Node.Size: DOTRepresentable {
-    func representation(in graph: Graph) -> String? {
-        fatalError("unimplemented") // FIXME
-    }
-}
-
 extension Node.Style: DOTRepresentable {
     func representation(in graph: Graph) -> String? {
         switch self {
