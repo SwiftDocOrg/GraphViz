@@ -263,6 +263,10 @@ extension Graph {
         @Attribute("comment")
         public var comment: String?
 
+        /// Unofficial, but supported by certain output formats, like svg.
+        @Attribute("class")
+        public var `class`: String?
+
         /**
          Specifies the name of the layout algorithm to use, such as "dot" or "neato". Normally, graphs should be kept independent of a type of layout. In some cases, however, it can be convenient to embed the type of layout desired within the graph. For example, a graph containing position information from a layout might want to record what the associated layout algorithm was.
 
@@ -897,6 +901,7 @@ extension Graph.Attributes {
             _backgroundColor,
             _boundingBox,
             _center,
+            _class,
             _clusterRank,
             _comment,
             _compound,

@@ -25,8 +25,9 @@ final class NodeTests: XCTestCase {
         var node = Node("a")
         node.label = "A"
         node.shape = .box
+        node.class = "entity"
 
-        let expected = "a [label=A shape=box]"
+        let expected = "a [class=entity label=A shape=box]"
 
         XCTAssertEqual(encoder.encode(node, in: graph), expected)
     }

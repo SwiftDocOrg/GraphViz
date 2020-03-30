@@ -8,6 +8,7 @@ final class RenderingTests: XCTestCase {
     let graph: Graph = {
         var graph = Graph(directed: true)
         var edge = Edge(from: "a", to: "b")
+        edge.class = "weighted"
         edge.decorate = true
         graph.append(edge)
         return graph

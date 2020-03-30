@@ -93,6 +93,10 @@ extension Edge {
         @Attribute("comment")
         public var comment: String?
 
+        /// Unofficial, but supported by certain output formats, like svg.
+        @Attribute("class")
+        public var `class`: String?
+
         /**
          If false, the edge is not used in ranking the nodes.
 
@@ -385,6 +389,7 @@ extension Edge.Attributes {
     var arrayValue: [Attributable] {
         return [
             _comment,
+            _class,
             _constraint,
             _ordering,
             _weight,

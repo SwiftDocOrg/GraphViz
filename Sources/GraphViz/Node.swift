@@ -78,6 +78,10 @@ extension Node {
         @Attribute("comment")
         public var comment: String?
 
+        /// Unofficial, but supported by certain output formats, like svg.
+        @Attribute("class")
+        public var `class`: String?
+
         /**
          If the value of the attribute is "out", then the outedges of a node, that is, edges with the node as its tail node, must appear left-to-right in the same order in which they are defined in the input. If the value of the attribute is "in", then the inedges of a node must appear left-to-right in the same order in which they are defined in the input. If defined as a graph or subgraph attribute, the value is applied to all nodes in the graph or subgraph. Note that the graph attribute takes precedence over the node attribute.
          */
@@ -342,6 +346,7 @@ extension Node.Attributes {
     var arrayValue: [Attributable] {
         return [
             _comment,
+            _class,
             _ordering,
             _sortValue,
             _size,
