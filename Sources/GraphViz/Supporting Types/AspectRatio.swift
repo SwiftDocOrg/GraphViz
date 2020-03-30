@@ -28,6 +28,15 @@ public enum AspectRatio: Hashable {
     case auto
 }
 
+
+// MARK: - ExpressibleByIntegerLiteral
+
+extension AspectRatio: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: IntegerLiteralType) {
+        self = .numeric(Double(value))
+    }
+}
+
 // MARK: - ExpressibleByFloatLiteral
 
 extension AspectRatio: ExpressibleByFloatLiteral {
