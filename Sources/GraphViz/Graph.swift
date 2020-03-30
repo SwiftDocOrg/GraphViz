@@ -328,7 +328,7 @@ extension Graph {
          bool    true        not dot
          */
         @Attribute("overlap")
-        public var overlap: Bool? // FIXME
+        public var overlap: String? // FIXME
 
         /**
          normalize
