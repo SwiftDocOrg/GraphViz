@@ -382,6 +382,15 @@ extension Edge {
          */
         @Attribute("showboxes")
         public var guideBoxLocation: Location?
+
+        // MARK: FDP, neato
+
+        /**
+          len
+          Preferred edge length, in inches.
+          */
+         @Attribute("len")
+         public var preferredEdgeLength: Double?
     }
 }
 
@@ -431,7 +440,8 @@ extension Edge.Attributes {
             _sameTail,
             _tailLabel,
             _minimumRankDifference,
-            _guideBoxLocation
+            _guideBoxLocation,
+            _preferredEdgeLength
         ]
     }
 

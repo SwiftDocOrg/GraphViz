@@ -758,13 +758,6 @@ extension Graph {
         @Attribute("Damping")
         public var damping: Double?
 
-        /**
-         len
-         Preferred edge length, in inches.
-         */
-        @Attribute("len")
-        public var preferredEdgelength: Double?
-
         // MARK: sfdp
 
         /**
@@ -947,7 +940,6 @@ extension Graph.Attributes {
             _overlapShrink,
             _pageDirection,
             _pageSize,
-            _preferredEdgelength,
             _quadtreeScheme,
             _rankDirection,
             _rankSeparation,
