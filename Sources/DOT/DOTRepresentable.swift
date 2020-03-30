@@ -46,7 +46,18 @@ extension URL: DOTRepresentable {
 
 extension AspectRatio: DOTRepresentable {
     func representation(in graph: Graph) -> String? {
-        fatalError("unimplemented") // FIXME
+        switch self {
+        case .numeric(let number):
+            return number.representation(in: graph)
+        case .fill:
+            return "fill"
+        case .compress:
+            return "compress"
+        case .expand:
+            return "expand"
+        case .auto:
+            return "auto"
+        }
     }
 }
 
