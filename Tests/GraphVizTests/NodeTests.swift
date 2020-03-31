@@ -31,4 +31,13 @@ final class NodeTests: XCTestCase {
 
         XCTAssertEqual(encoder.encode(node, in: graph), expected)
     }
+
+    func testNodeWithKeywordID() {
+        var node = Node("Node")
+        node.label = "Node"
+
+        let expected = #""Node" [label="Node"]"#
+
+        XCTAssertEqual(encoder.encode(node, in: graph), expected)
+    }
 }

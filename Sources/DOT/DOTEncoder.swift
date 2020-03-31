@@ -156,7 +156,9 @@ public struct DOTEncoder {
 
     private func escape(_ string: String) -> String {
         var escapedString = string.replacingOccurrences(of: "\"", with: #"\""#)
-        if string.contains(where: { !$0.isLetter && !$0.isNumber && $0 != "_" }) {
+        if string.contains(where: { !$0.isLetter && !$0.isNumber && $0 != "_" }) ||
+            DOT.keywords.contains(where: { escapedString.caseInsensitiveCompare($0) == .orderedSame })
+        {
             escapedString = #""\#(escapedString)""#
         }
 
