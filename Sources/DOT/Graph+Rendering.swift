@@ -62,7 +62,7 @@ extension Graph {
         }
 
         inputPipe.fileHandleForWriting.write(Data(encoded.utf8))
-        try inputPipe.fileHandleForWriting.close()
+        inputPipe.fileHandleForWriting.closeFile()
 
         task.waitUntilExit()
 
