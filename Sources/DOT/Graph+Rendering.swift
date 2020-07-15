@@ -44,10 +44,6 @@ extension Graph {
         task.arguments = ["-T", format.rawValue]
 
         let inputPipe = Pipe()
-        inputPipe.fileHandleForWriting.writeabilityHandler = { fileHandle in
-            fileHandle.write(encoded.data(using: .utf8)!)
-            inputPipe.fileHandleForWriting.closeFile()
-        }
         task.standardInput = inputPipe
 
         var data = Data()
@@ -65,9 +61,11 @@ extension Graph {
             task.launch()
         }
 
+        inputPipe.fileHandleForWriting.write(Data(encoded.utf8))
+        inputPipe.fileHandleForWriting.closeFile()
+
         task.waitUntilExit()
 
         return data
     }
 }
-
