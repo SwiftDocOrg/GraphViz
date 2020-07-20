@@ -356,6 +356,7 @@ extension Node.Attributes {
             _sortValue,
             _width,
             _height,
+            _fillColor,
             _fixedSize,
             _shape,
             _style,

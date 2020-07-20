@@ -240,6 +240,7 @@ extension Subgraph.Attributes {
             _backgroundColor,
             _borderColor,
             _borderWidth,
+            _fillColor,
             _href,
             _url,
             _fontName,
