@@ -27,11 +27,8 @@ var b_c = Edge(from: b, to: c)
 b_c.constraint = false
 graph.append(b_c)
 
-// Produce DOT language representation
-let dot = DOTEncoder().encode(graph)
-
 // Render image using dot layout algorithm
-let data = try! graph.render(using: .dot, to: .svg)
+let data = try! Renderer(using: .dot, to: .svg).render(graph: graph)
 let svg = String(data: data, encoding: .utf8)!
 ```
 
