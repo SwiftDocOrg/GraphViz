@@ -29,8 +29,16 @@ fileprivate func which(_ command: String) throws -> URL {
     return URL(fileURLWithPath: string)
 }
 
-extension String {
-    public func renderAsDOT(using layout: LayoutAlgorithm, to format: Format) throws -> Data {
+public struct Renderer {
+    private let layout: LayoutAlgorithm
+    private let format: Format
+
+    public init(using layout: LayoutAlgorithm, to format: Format) {
+        self.layout = layout
+        self.format = format
+    }
+
+    public func render(dotEncoded: String) throws -> Data {
         let url = try which(layout.rawValue)
         let task = Process()
         if #available(OSX 10.13, *) {
@@ -59,18 +67,16 @@ extension String {
             task.launch()
         }
 
-        inputPipe.fileHandleForWriting.write(Data(utf8))
+        inputPipe.fileHandleForWriting.write(Data(dotEncoded.utf8))
         inputPipe.fileHandleForWriting.closeFile()
 
         task.waitUntilExit()
 
         return data
     }
-}
 
-extension Graph {
-    public func render(using layout: LayoutAlgorithm, to format: Format) throws -> Data {
-        let encoded = DOTEncoder().encode(self)
-        return try encoded.renderAsDOT(using: layout, to: format)
+    public func render(graph: Graph) throws -> Data {
+        let encoded = DOTEncoder().encode(graph)
+        return try render(dotEncoded: encoded)
     }
 }
