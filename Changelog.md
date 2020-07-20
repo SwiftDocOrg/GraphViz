@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2020-07-20
+
 ### Changed
 
 - Changed `Edge.strokeColor` property
@@ -86,7 +88,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release.
 
-[unreleased]: https://github.com/SwiftDocOrg/GraphViz/compare/0.1.2...master
+[unreleased]: https://github.com/SwiftDocOrg/GraphViz/compare/0.1.3...master
+[0.1.3]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.3
 [0.1.2]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.2
 [0.1.1]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.1
 [0.1.0]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.0
