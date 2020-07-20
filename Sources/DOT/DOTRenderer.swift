@@ -29,7 +29,7 @@ fileprivate func which(_ command: String) throws -> URL {
     return URL(fileURLWithPath: string)
 }
 
-public struct Renderer {
+public struct DOTRenderer {
     private let layout: LayoutAlgorithm
     private let format: Format
 

@@ -28,7 +28,7 @@ b_c.constraint = false
 graph.append(b_c)
 
 // Render image using dot layout algorithm
-let data = try! Renderer(using: .dot, to: .svg).render(graph: graph)
+let data = try! DOTRenderer(using: .dot, to: .svg).render(graph: graph)
 let svg = String(data: data, encoding: .utf8)!
 ```
 
