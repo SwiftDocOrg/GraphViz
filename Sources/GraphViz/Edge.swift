@@ -149,7 +149,7 @@ extension Edge {
         public var style: Style?
 
         /// > Basic drawing color for graphics.
-        @Attribute("pencolor")
+        @Attribute("color")
         public var strokeColor: Color?
 
         /**
