@@ -68,8 +68,8 @@ extension Subgraph {
         case dotted
         case bold
         case rounded
-        case filled(Color)
-        case striped([Color])
+        case filled
+        case striped
         case compound([Style])
     }
 
@@ -127,21 +127,10 @@ extension Subgraph {
 
         /// - Important: Setting fillColor sets `style` to .filled;
         ///              setting `nil` fillColor sets `style` to `nil`
+        @Attribute("fillcolor")
         public var fillColor: Color? {
-            get {
-                if case let .filled(color)? = style {
-                    return color
-                } else {
-                    return nil
-                }
-            }
-
-            set {
-                if let color = newValue {
-                    style = .filled(color)
-                } else {
-                    style = nil
-                }
+            willSet {
+                style = newValue.map { _ in .filled }
             }
         }
 

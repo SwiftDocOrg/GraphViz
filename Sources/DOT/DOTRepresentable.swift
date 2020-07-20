@@ -177,9 +177,9 @@ extension Subgraph.Style: DOTRepresentable {
             return "bold"
         case .rounded:
             return "rounded"
-        case .filled(_):
+        case .filled:
             return "filled"
-        case .striped(_):
+        case .striped:
             return "striped"
         case .compound(let styles):
             return styles.compactMap { $0.representation(in: graph) }.joined(separator: ",")
@@ -208,11 +208,11 @@ extension Node.Style: DOTRepresentable {
             return "rounded"
         case .diagonals:
             return "diagonals"
-        case .filled(_):
+        case .filled:
             return "filled"
-        case .striped(_):
+        case .striped:
             return "striped"
-        case .wedged(_):
+        case .wedged:
             return "wedged"
         case .compound(let styles):
             return styles.compactMap { $0.representation(in: graph) }.joined(separator: ",")
