@@ -14,6 +14,7 @@ A Swift package for working with [GraphViz][graphviz].
 
 ```swift
 import GraphViz
+import DOT
 
 var graph = Graph(directed: true)
 
