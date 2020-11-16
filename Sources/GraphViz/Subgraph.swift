@@ -71,6 +71,19 @@ extension Subgraph {
         case filled(Color)
         case striped([Color])
         case compound([Style])
+
+        public var colors: [Color]? {
+            switch self {
+            case .filled(let color):
+                return [color]
+            case .striped(let colors):
+                return colors
+            case .compound(let styles):
+                return styles.compactMap { $0.colors }.flatMap { $0 }
+            default:
+                return nil
+            }
+        }
     }
 
     public struct Attributes: Hashable {
@@ -98,7 +111,11 @@ extension Subgraph {
 
         /// > Defines the graphic style on an object.
         @Attribute("style")
-        public var style: Style?
+        public var style: Style? {
+            willSet {
+                self.fillColors = newValue?.colors
+            }
+        }
 
         /**
          The node size set by height and width is kept fixed and not expanded to contain the text label.
@@ -125,15 +142,15 @@ extension Subgraph {
         @Attribute("penwidth")
         public var borderWidth: Double?
 
+        @Attribute("fillcolor")
+        private var fillColors: [Color]?
+
         /// - Important: Setting fillColor sets `style` to .filled;
         ///              setting `nil` fillColor sets `style` to `nil`
         public var fillColor: Color? {
             get {
-                if case let .filled(color)? = style {
-                    return color
-                } else {
-                    return nil
-                }
+                guard let colors = style?.colors else { return nil }
+                return colors.count == 1 ? colors.first : nil
             }
 
             set {
@@ -249,6 +266,7 @@ extension Subgraph.Attributes {
             _style,
             _size,
             _backgroundColor,
+            _fillColors,
             _borderColor,
             _borderWidth,
             _href,

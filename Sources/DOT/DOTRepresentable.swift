@@ -11,6 +11,12 @@ extension Attribute: DOTRepresentable where Value: DOTRepresentable {
     }
 }
 
+extension Array: DOTRepresentable where Element: DOTRepresentable {
+    func representation(in graph: Graph) -> String? {
+        return compactMap { $0.representation(in: graph) }.joined(separator: ",")
+    }
+}
+
 // MARK: -
 
 extension CustomStringConvertible {
