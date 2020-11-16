@@ -1,20 +1,61 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
-  macos:
-    runs-on: macOS-latest
+  macos_big_sur:
+    runs-on: macos-11.0
 
     strategy:
       matrix:
-        xcode: ["11.3", "11.4"]
+        xcode:
+          - "11.7" # Swift 5.2
+          - "12.2" # Swift 5.3
+
+    name: "macOS Big Sur (Xcode ${{ matrix.xcode }})"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - uses: actions/cache@v2
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-xcode-${{ matrix.xcode }}-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-xcode-${{ matrix.xcode }}-
       - name: Build and Test
-        run: swift test
+        run: |
+          swift test
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+
+  macos_catalina:
+    runs-on: macos-10.15
+
+    strategy:
+      matrix:
+        xcode:
+          - "11.7" # Swift 5.2
+          - "12" # Swift 5.3
+
+    name: "macOS Catalina (Xcode ${{ matrix.xcode }})"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - uses: actions/cache@v2
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-xcode-${{ matrix.xcode }}-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-xcode-${{ matrix.xcode }}-
+      - name: Build and Test
+        run: |
+          swift test
         env:
           DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
 
@@ -23,7 +64,9 @@ jobs:
 
     strategy:
       matrix:
-        swift: ["5.1", "5.2"]
+        swift: ["5.3", "5.2"]
+
+    name: "Ubuntu Linux (Swift ${{ matrix.swift }})"
 
     container:
       image: swift:${{ matrix.swift }}
