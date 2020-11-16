@@ -73,8 +73,8 @@ public struct DOTRenderer {
         return data
     }
 
-    public func render(graph: Graph) throws -> Data {
+    public func render(graph: Graph, to format: Format) throws -> Data {
         let encoded = DOTEncoder().encode(graph)
-        return try render(dotEncoded: encoded)
+        return try render(dotEncoded: encoded, to: format)
     }
 }
