@@ -30,7 +30,8 @@ fileprivate func which(_ command: String) throws -> URL {
 }
 
 public struct DOTRenderer {
-    let layout: LayoutAlgorithm
+    public let layout: LayoutAlgorithm
+
     public init(using layout: LayoutAlgorithm) {
         self.layout = layout
     }
