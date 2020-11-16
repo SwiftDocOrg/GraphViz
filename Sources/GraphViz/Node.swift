@@ -39,7 +39,7 @@ public struct Node: Identifiable, Hashable {
 
 extension Node {
     public enum Shape: String, Hashable {
-        case box, circle, ellipse, point, egg, triangle, plaintext, diamond, trapezium, parallelogram, house, hexagon, octagon, doublecircle, doubleoctagon, invtriangle, invtrapezium, invhouse, Mdiamond, Msquare, Mcircle
+        case box, rectangle, square, circle, ellipse, point, egg, triangle, plaintext, plain, diamond, trapezium, parallelogram, house, hexagon, octagon, doublecircle, doubleoctagon, invtriangle, invtrapezium, invhouse, Mdiamond, Msquare, Mcircle, polygon, oval, star, cylinder, note, tab, folder, box3d, component, cds, signature
     }
 
     public enum ImagePosition: String {
