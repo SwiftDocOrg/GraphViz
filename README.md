@@ -7,7 +7,7 @@ A Swift package for working with [GraphViz][graphviz].
 
 ## Requirements
 
-- Swift 5.1+
+- Swift 5.2+
 - GraphViz _(only for rendering)_
 
 ## Usage
