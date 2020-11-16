@@ -66,6 +66,8 @@ jobs:
       matrix:
         swift: ["5.3", "5.2"]
 
+    name: "Ubuntu Linux (Swift ${{ matrix.swift }})"
+
     container:
       image: swift:${{ matrix.swift }}
 
