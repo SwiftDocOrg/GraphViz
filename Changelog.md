@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Removed support for Swift 5.1.
+  #10 by @mattt.
+
 ## [0.1.3] - 2020-07-20
 
 ### Changed
