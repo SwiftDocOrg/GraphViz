@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.3] - 2020-07-20
 
+### Added
+
+- Added node shapes `rectangle`, `square`, `plain`, `polygon`, `oval`,
+  `star`, `cylinder`, `note`, `tab`, `folder`, `box3d`, `component`, `cds`, and
+  `signature`.
+  #7 by @natanrolnik.
+
 ### Changed
 
 - Changed `Edge.strokeColor` property
