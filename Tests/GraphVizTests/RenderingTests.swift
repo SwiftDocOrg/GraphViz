@@ -1,6 +1,7 @@
 import XCTest
 @testable import GraphViz
 @testable import DOT
+@testable import Tools
 
 #if !os(Linux)
 final class RenderingTests: XCTestCase {
