@@ -2,14 +2,30 @@ import Foundation
 import GraphViz
 import DOT
 
+/**
+ A GraphViz renderer.
+
+ - Important: GraphViz must be available on your system to use these APIs.
+ */
 public class Renderer {
+    /// The location of the GraphViz tool.
     public let url: URL
 
+    /**
+     Creates a renderer for the specified layout algorithm.
+
+     - Throws: `CocoaError` if the corresponding GraphViz tool isn't available.
+     */
     public convenience init(layout: LayoutAlgorithm) throws {
         let url = try which(layout.rawValue)
         try self.init(url: url)
     }
 
+    /**
+     Creates a renderer using the tool at the provided URL.
+
+     - Throws: `CocoaError` if the corresponding tool isn't available.
+     */
     public init(url: URL) throws {
         let fileManager = FileManager.default
         let path = url.path
@@ -25,11 +41,27 @@ public class Renderer {
         self.url = url
     }
 
+    /**
+     Renders a graph to the specified output format.
+
+     - Parameters:
+        - graph: The graph to be rendered.
+        - format: The output format.
+     - Throws: `CocoaError` if the tool's external process fails.
+     */
     public func render(graph: Graph, to format: Format) throws -> Data {
         let dot = DOTEncoder().encode(graph)
         return try render(dot: dot, to: format)
     }
 
+    /**
+     Renders a DOT-encoded string to the specified output format.
+
+     - Parameters:
+        - dot: A DOT-encoded string to be rendered.
+        - format: The output format.
+     - Throws: `CocoaError` if the tool's external process fails.
+     */
     public func render(dot: String, to format: Format) throws -> Data {
         let task = Process()
         if #available(OSX 10.13, *) {
