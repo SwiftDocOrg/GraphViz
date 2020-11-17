@@ -52,21 +52,26 @@ final class NodeTests: XCTestCase {
 
     func testNodeWithStyle() {
         var node = Node("a")
-        node.style = .striped([.named(.pink), .named(.white), .named(.chocolate)])
 
-        let expected = #"a [fillcolor="pink,white,chocolate" style=striped]"#
+        do {
+            node.style = .striped([.named(.pink), .named(.white), .named(.chocolate)])
 
-        XCTAssertEqual(encoder.encode(node, in: graph), expected)
-    }
+            let expected = #"a [fillcolor="pink,white,chocolate" style=striped]"#
+            XCTAssertEqual(encoder.encode(node, in: graph), expected)
+        }
 
-    func testNodeWithStyleOverwrittenByFillColor() {
-        var node = Node("a")
-        node.style = .striped([.named(.pink), .named(.white), .named(.chocolate)])
-        node.fillColor = .named(.red)
+        do {
+            node.fillColor = .named(.red)
 
-        let expected = "a [fillcolor=red style=filled]"
+            let expected = "a [fillcolor=red style=filled]"
+            XCTAssertEqual(encoder.encode(node, in: graph), expected)
+        }
 
-        XCTAssertEqual(encoder.encode(node, in: graph), expected)
+        do {
+            node.fillColor = nil
+
+            XCTAssertNil(encoder.encode(node, in: graph))
+        }
     }
 
     func testNodeWithKeywordID() {
