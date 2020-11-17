@@ -15,16 +15,14 @@ final class RenderingTests: XCTestCase {
     }()
 
     func testRendererWithLayout() throws {
-        let renderer: Renderer
+        let data: Data
 
         do {
-            renderer = try Renderer(layout: .dot)
+            let renderer = try Renderer(layout: .dot)
+            data = try renderer.render(graph: graph, to: .svg)
         } catch {
-            throw XCTSkip("Missing dot binary")
+            throw XCTSkip(error.localizedDescription)
         }
-
-        let data = try renderer.render(graph: graph, to: .svg)
-
 
         let svg = String(data: data, encoding: .utf8)!
 
@@ -33,16 +31,15 @@ final class RenderingTests: XCTestCase {
     }
 
     func testRendererWithURL() throws {
-        let url: URL
+        let data: Data
 
         do {
-            url = try which("dot")
+            let url = try which("dot")
+            let renderer = try Renderer(url: url)
+            data = try renderer.render(graph: graph, to: .svg)
         } catch {
-            throw XCTSkip("Missing dot binary")
+            throw XCTSkip(error.localizedDescription)
         }
-
-        let renderer = try Renderer(url: url)
-        let data = try renderer.render(graph: graph, to: .svg)
 
         let svg = String(data: data, encoding: .utf8)!
 
@@ -56,7 +53,7 @@ final class RenderingTests: XCTestCase {
         do {
             data = try graph.render(using: .dot, to: .svg)
         } catch {
-            throw XCTSkip("Missing dot binary")
+            throw XCTSkip(error.localizedDescription)
         }
 
         let svg = String(data: data, encoding: .utf8)!
