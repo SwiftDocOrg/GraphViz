@@ -29,7 +29,7 @@ let package = Package(
             dependencies: ["GraphViz"]),
         .target(
             name: "Tools",
-            dependencies: ["GraphViz"]),
+            dependencies: ["GraphViz", "DOT"]),
         .target(
             name: "GraphVizBuilder",
             dependencies: ["GraphViz"]),
