@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added support for `style` and `fillcolor` attributes.
   #11 by @mattt and @fwcd.
+- Added a `Renderer` class that can render DOT-encoded strings directly.
+  #5 by @fwcd and @mattt.
 
 ### Removed
 
