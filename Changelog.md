@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2020-11-17
+
 ### Added
 
 - Added support for `style` and `fillcolor` attributes.
@@ -100,7 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release.
 
-[unreleased]: https://github.com/SwiftDocOrg/GraphViz/compare/0.1.3...master
+[unreleased]: https://github.com/SwiftDocOrg/GraphViz/compare/0.2.0...master
+[0.2.0]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.2.0
 [0.1.3]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.3
 [0.1.2]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.2
 [0.1.1]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.1.1

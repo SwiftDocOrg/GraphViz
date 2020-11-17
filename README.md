@@ -82,7 +82,7 @@ let package = Package(
   dependencies: [
     .package(
         url: "https://github.com/SwiftDocOrg/GraphViz",
-        from: "0.1.3"
+        from: "0.2.0"
     ),
   ]
 )
