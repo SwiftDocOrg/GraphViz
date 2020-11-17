@@ -1,6 +1,3 @@
-
-
-
 public enum LayoutAlgorithm: String {
     /// dot draws directed graphs. It works well on DAGs and other graphs that can be drawn as hierarchies.
     case dot

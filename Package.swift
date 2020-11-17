@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "GraphViz",
-            targets: ["GraphViz", "DOT"]),
+            targets: ["GraphViz", "DOT", "Tools"]),
         .library(
             name: "GraphVizBuilder",
             targets: ["GraphVizBuilder"]),
@@ -28,11 +28,14 @@ let package = Package(
             name: "DOT",
             dependencies: ["GraphViz"]),
         .target(
+            name: "Tools",
+            dependencies: ["GraphViz", "DOT"]),
+        .target(
             name: "GraphVizBuilder",
             dependencies: ["GraphViz"]),
         .testTarget(
             name: "GraphVizTests",
-            dependencies: ["GraphViz", "DOT"]),
+            dependencies: ["GraphViz", "DOT", "Tools"]),
         .testTarget(
             name: "GraphVizBuilderTests",
             dependencies: ["GraphViz", "DOT", "GraphVizBuilder"]),
