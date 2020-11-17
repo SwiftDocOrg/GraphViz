@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added support for `style` and `fillcolor` attributes.
+  #11 by @mattt and @fwcd.
+
 ### Removed
 
 - Removed support for Swift 5.1.
