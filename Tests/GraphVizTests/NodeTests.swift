@@ -32,6 +32,48 @@ final class NodeTests: XCTestCase {
         XCTAssertEqual(encoder.encode(node, in: graph), expected)
     }
 
+    func testNodeWithFilledStyle() {
+        var node = Node("a")
+        node.style = .filled(.named(.red))
+
+        let expected = "a [fillcolor=red style=filled]"
+
+        XCTAssertEqual(encoder.encode(node, in: graph), expected)
+    }
+
+    func testNodeWithFillColor() {
+        var node = Node("a")
+        node.fillColor = .named(.red)
+
+        let expected = "a [fillcolor=red style=filled]"
+
+        XCTAssertEqual(encoder.encode(node, in: graph), expected)
+    }
+
+    func testNodeWithStyle() {
+        var node = Node("a")
+
+        do {
+            node.style = .striped([.named(.pink), .named(.white), .named(.chocolate)])
+
+            let expected = #"a [fillcolor="pink,white,chocolate" style=striped]"#
+            XCTAssertEqual(encoder.encode(node, in: graph), expected)
+        }
+
+        do {
+            node.fillColor = .named(.red)
+
+            let expected = "a [fillcolor=red style=filled]"
+            XCTAssertEqual(encoder.encode(node, in: graph), expected)
+        }
+
+        do {
+            node.fillColor = nil
+
+            XCTAssertNil(encoder.encode(node, in: graph))
+        }
+    }
+
     func testNodeWithKeywordID() {
         var node = Node("Node")
         node.label = "Node"

@@ -75,6 +75,20 @@ extension Node {
         case striped([Color])
         case wedged([Color])
         case compound([Style])
+
+        public var colors: [Color]? {
+            switch self {
+            case .filled(let color):
+                return [color]
+            case .striped(let colors),
+                 .wedged(let colors):
+                return colors
+            case .compound(let styles):
+                return styles.compactMap { $0.colors }.flatMap { $0 }
+            default:
+                return nil
+            }
+        }
     }
 
     public struct Attributes: Hashable {
@@ -136,7 +150,11 @@ extension Node {
 
         /// > Defines the graphic style on an object.
         @Attribute("style")
-        public var style: Style?
+        public var style: Style? {
+            willSet {
+                self.fillColors = newValue?.colors
+            }
+        }
 
         /// > When attached to the root graph, this color is used as the background for entire canvas. For a cluster, it is used as the initial background for the cluster. If a cluster has a filled style, the cluster's fillcolor will overlay the background color.
         @Attribute("bgcolor")
@@ -153,15 +171,15 @@ extension Node {
         @Attribute("penwidth")
         public var strokeWidth: Double?
 
+        @Attribute("fillcolor")
+        private var fillColors: [Color]?
+
         /// - Important: Setting fillColor sets `style` to .filled;
         ///              setting `nil` fillColor sets `style` to `nil`
         public var fillColor: Color? {
             get {
-                if case let .filled(color)? = style {
-                    return color
-                } else {
-                    return nil
-                }
+                guard let colors = style?.colors else { return nil }
+                return colors.count == 1 ? colors.first : nil
             }
 
             set {
@@ -371,6 +389,7 @@ extension Node.Attributes {
             _shape,
             _style,
             _backgroundColor,
+            _fillColors,
             _strokeColor,
             _strokeWidth,
             _imageURL,
