@@ -15,6 +15,7 @@ A Swift package for working with [GraphViz][graphviz].
 ```swift
 import GraphViz
 import DOT
+import Tools
 
 var graph = Graph(directed: true)
 
@@ -28,7 +29,7 @@ b_c.constraint = false
 graph.append(b_c)
 
 // Render image using dot layout algorithm
-let data = try! DOTRenderer(using: .dot, to: .svg).render(graph: graph)
+let data = try! Renderer(layout: .dot).render(graph: graph, to: .svg)
 let svg = String(data: data, encoding: .utf8)!
 ```
 
