@@ -18,24 +18,7 @@ final class RenderingTests: XCTestCase {
         let data: Data
 
         do {
-            let renderer = try Renderer(layout: .dot)
-            data = try renderer.render(graph: graph, to: .svg)
-        } catch {
-            throw XCTSkip(error.localizedDescription)
-        }
-
-        let svg = String(data: data, encoding: .utf8)!
-
-        XCTAssert(svg.starts(with: "<?xml"))
-        XCTAssertGreaterThan(svg.count, 100)
-    }
-
-    func testRendererWithURL() throws {
-        let data: Data
-
-        do {
-            let url = try which("dot")
-            let renderer = try Renderer(url: url)
+            let renderer = Renderer(layout: .dot)
             data = try renderer.render(graph: graph, to: .svg)
         } catch {
             throw XCTSkip(error.localizedDescription)
