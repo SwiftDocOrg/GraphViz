@@ -16,7 +16,6 @@ module Clibgraphviz [system] {
     header "gvplugin_loadimage.h"
     header "gvplugin_render.h"
     header "gvplugin_textlayout.h"
-    header "gvpr.h"
     header "pack.h"
     header "pathgeom.h"
     header "pathplan.h"
