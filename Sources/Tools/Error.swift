@@ -33,13 +33,3 @@ public func attempt<T>(throwing function: () -> T) throws -> T {
 
     return result
 }
-
-//
-//public func result(of function: () -> Int32) -> Result<Void, Swift.Error> {
-//    do {
-//        try attempt(throwing: function)
-//        return .success(())
-//    } catch {
-//        return .failure(error)
-//    }
-//}
