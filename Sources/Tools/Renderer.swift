@@ -1,6 +1,7 @@
 import Foundation
 import GraphViz
 import DOT
+import Clibgraphviz
 
 /**
  A GraphViz renderer.
@@ -8,37 +9,41 @@ import DOT
  - Important: GraphViz must be available on your system to use these APIs.
  */
 public class Renderer {
-    /// The location of the GraphViz tool.
-    public let url: URL
+    /// Rendering options.
+    public struct Options: OptionSet {
+        public let rawValue: Int
+
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+
+        /**
+         tred  computes  the  transitive reduction of directed graphs, and
+         prints the resulting graphs to  standard  output.   This  removes
+         edges  implied by transitivity.  Nodes and subgraphs are not oth-
+         erwise affected.  The ``meaning'' and  validity  of  the  reduced
+         graphs  is application dependent.  tred is particularly useful as
+         a preprocessor to dot to reduce clutter in dense layouts.
+
+         Undirected graphs are silently ignored.
+         */
+        static let removeEdgesImpliedByTransitivity = Options(rawValue: 1 << 0)
+    }
+
+    /// The layout algorithm used.
+    public var layout: LayoutAlgorithm
+
+    /// The rendering options.
+    public var options: Options = []
 
     /**
      Creates a renderer for the specified layout algorithm.
 
      - Throws: `CocoaError` if the corresponding GraphViz tool isn't available.
      */
-    public convenience init(layout: LayoutAlgorithm) throws {
-        let url = try which(layout.rawValue)
-        try self.init(url: url)
-    }
-
-    /**
-     Creates a renderer using the tool at the provided URL.
-
-     - Throws: `CocoaError` if the corresponding tool isn't available.
-     */
-    public init(url: URL) throws {
-        let fileManager = FileManager.default
-        let path = url.path
-
-        guard fileManager.fileExists(atPath: path) else {
-            throw CocoaError.error(.fileNoSuchFile, url: url)
-        }
-
-        guard fileManager.isExecutableFile(atPath: url.path) else {
-            throw CocoaError.error(.executableNotLoadable, url: url)
-        }
-
-        self.url = url
+    public init(layout: LayoutAlgorithm, options: Options = []) {
+        self.layout = layout
+        self.options = options
     }
 
     /**
@@ -47,7 +52,7 @@ public class Renderer {
      - Parameters:
         - graph: The graph to be rendered.
         - format: The output format.
-     - Throws: `CocoaError` if the tool's external process fails.
+     - Throws: `Error` if GraphViz is unable to render.
      */
     public func render(graph: Graph, to format: Format) throws -> Data {
         let dot = DOTEncoder().encode(graph)
@@ -60,41 +65,34 @@ public class Renderer {
      - Parameters:
         - dot: A DOT-encoded string to be rendered.
         - format: The output format.
-     - Throws: `CocoaError` if the tool's external process fails.
+     - Throws: `Error` if GraphViz is unable to render.
      */
     public func render(dot: String, to format: Format) throws -> Data {
-        let task = Process()
-        if #available(OSX 10.13, *) {
-            task.executableURL = url
-        } else {
-            task.launchPath = url.path
+        let context = gvContext()
+        defer { gvFreeContext(context)}
+
+        let graph = try dot.withCString { cString in
+            try attempt { agmemread(cString) }
         }
 
-        task.arguments = ["-T", format.rawValue]
-
-        let inputPipe = Pipe()
-        task.standardInput = inputPipe
-
-        var data = Data()
-
-        let outputPipe = Pipe()
-        defer { outputPipe.fileHandleForReading.closeFile() }
-        outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-            data.append(fileHandle.availableData)
-        }
-        task.standardOutput = outputPipe
-
-        if #available(OSX 10.13, *) {
-            try task.run()
-        } else {
-            task.launch()
+        if options.contains(.removeEdgesImpliedByTransitivity) {
+            try attempt { gvToolTred(graph) }
         }
 
-        inputPipe.fileHandleForWriting.write(Data(dot.utf8))
-        inputPipe.fileHandleForWriting.closeFile()
+        try layout.rawValue.withCString { cString in
+            try attempt { gvLayout(context, graph, cString) }
+        }
+        defer { gvFreeLayout(context, graph) }
 
-        task.waitUntilExit()
+        var data: UnsafeMutablePointer<Int8>?
+        var length: UInt32 = 0
+        try format.rawValue.withCString { cString in
+            try attempt { gvRenderData(context, graph, cString, &data, &length) }
+        }
+        defer { gvFreeRenderData(data) }
 
-        return data
+        guard let bytes = data else { return Data() }
+
+        return Data(bytes: UnsafeRawPointer(bytes), count: Int(length))
     }
 }

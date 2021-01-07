@@ -1,0 +1,31 @@
+module Clibgraphviz [system] {
+    header "arith.h"
+    header "cdt.h"
+    header "cgraph.h"
+    header "color.h"
+    header "geom.h"
+    header "graphviz_version.h"
+    header "gvc.h"
+    header "gvcext.h"
+    header "gvcjob.h"
+    header "gvcommon.h"
+    header "gvconfig.h"
+    header "gvplugin.h"
+    header "gvplugin_device.h"
+    header "gvplugin_layout.h"
+    header "gvplugin_loadimage.h"
+    header "gvplugin_render.h"
+    header "gvplugin_textlayout.h"
+    header "pack.h"
+    header "pathgeom.h"
+    header "pathplan.h"
+    header "textspan.h"
+    header "types.h"
+    header "usershape.h"
+    header "xdot.h"
+
+    link "cgraph"
+    link "gvc"
+    
+    export *
+}
