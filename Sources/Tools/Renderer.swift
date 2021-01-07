@@ -9,16 +9,41 @@ import Clibgraphviz
  - Important: GraphViz must be available on your system to use these APIs.
  */
 public class Renderer {
-    /// The layoutAlgorithm used.
+    /// Rendering options.
+    public struct Options: OptionSet {
+        public let rawValue: Int
+
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+
+        /**
+         tred  computes  the  transitive reduction of directed graphs, and
+         prints the resulting graphs to  standard  output.   This  removes
+         edges  implied by transitivity.  Nodes and subgraphs are not oth-
+         erwise affected.  The ``meaning'' and  validity  of  the  reduced
+         graphs  is application dependent.  tred is particularly useful as
+         a preprocessor to dot to reduce clutter in dense layouts.
+
+         Undirected graphs are silently ignored.
+         */
+        static let removeEdgesImpliedByTransitivity = Options(rawValue: 1 << 0)
+    }
+
+    /// The layout algorithm used.
     public var layout: LayoutAlgorithm
+
+    /// The rendering options.
+    public var options: Options = []
 
     /**
      Creates a renderer for the specified layout algorithm.
 
      - Throws: `CocoaError` if the corresponding GraphViz tool isn't available.
      */
-    public init(layout: LayoutAlgorithm) {
+    public init(layout: LayoutAlgorithm, options: Options = []) {
         self.layout = layout
+        self.options = options
     }
 
     /**
@@ -49,6 +74,11 @@ public class Renderer {
         let graph = try dot.withCString { cString in
             try attempt { agmemread(cString) }
         }
+
+        if options.contains(.removeEdgesImpliedByTransitivity) {
+            try attempt { gvToolTred(graph) }
+        }
+
         try layout.rawValue.withCString { cString in
             try attempt { gvLayout(context, graph, cString) }
         }
