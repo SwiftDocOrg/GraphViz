@@ -1,4 +1,6 @@
 import Foundation
+import Dispatch
+
 import Core
 
 extension Graph {
@@ -11,7 +13,12 @@ extension Graph {
         - options: The rendering options.
      - Throws: `CocoaError` if the corresponding GraphViz tool isn't available.
      */
-    public func render(using layout: LayoutAlgorithm, to format: Format, with options: Renderer.Options = []) throws -> Data {
-        return try Renderer(layout: layout).render(graph: self, to: format)
+    public func render(using layout: LayoutAlgorithm,
+                       to format: Format,
+                       with options: Renderer.Options = [],
+                       on queue: DispatchQueue = .main,
+                       completion: (@escaping (Result<Data, Swift.Error>) -> Void))
+    {
+        Renderer(layout: layout).render(graph: self, to: format, completion: completion)
     }
 }

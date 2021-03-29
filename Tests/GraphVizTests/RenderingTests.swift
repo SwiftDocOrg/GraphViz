@@ -14,34 +14,32 @@ final class RenderingTests: XCTestCase {
         return graph
     }()
 
-    func testRendererWithLayout() throws {
-        let data: Data
+    func testGraphRendering() throws {
+        graph.render(using: .dot, to: .svg) { result in
+            switch result {
+            case .success(let data):
+                let svg = String(data: data, encoding: .utf8)!
 
-        do {
-            let renderer = Renderer(layout: .dot)
-            data = try renderer.render(graph: graph, to: .svg)
-        } catch {
-            throw XCTSkip(error.localizedDescription)
+                XCTAssert(svg.starts(with: "<?xml"))
+                XCTAssertGreaterThan(svg.count, 100)
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
         }
-
-        let svg = String(data: data, encoding: .utf8)!
-
-        XCTAssert(svg.starts(with: "<?xml"))
-        XCTAssertGreaterThan(svg.count, 100)
     }
 
-    func testGraphRendering() throws {
-        let data: Data
+    func testRendererWithRenderer() throws {
+        let renderer = Renderer(layout: .dot)
+        renderer.render(graph: graph, to: .svg) { result in
+            switch result {
+            case .success(let data):
+                let svg = String(data: data, encoding: .utf8)!
 
-        do {
-            data = try graph.render(using: .dot, to: .svg)
-        } catch {
-            throw XCTSkip(error.localizedDescription)
+                XCTAssert(svg.starts(with: "<?xml"))
+                XCTAssertGreaterThan(svg.count, 100)
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
         }
-
-        let svg = String(data: data, encoding: .utf8)!
-
-        XCTAssert(svg.starts(with: "<?xml"))
-        XCTAssertGreaterThan(svg.count, 100)
     }
 }
