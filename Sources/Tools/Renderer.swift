@@ -1,4 +1,6 @@
 import Foundation
+import Dispatch
+
 import Core
 import DOT
 import Clibgraphviz
@@ -30,6 +32,8 @@ public class Renderer {
         static let removeEdgesImpliedByTransitivity = Options(rawValue: 1 << 0)
     }
 
+    private static let queue = DispatchQueue(label: "org.swiftdoc.GraphViz.rendering")
+
     /// The layout algorithm used.
     public var layout: LayoutAlgorithm
 
@@ -54,9 +58,13 @@ public class Renderer {
         - format: The output format.
      - Throws: `Error` if GraphViz is unable to render.
      */
-    public func render(graph: Graph, to format: Format) throws -> Data {
+    public func render(graph: Graph,
+                       to format: Format,
+                       on queue: DispatchQueue = .main,
+                       completion: (@escaping (Result<Data, Swift.Error>) -> Void))
+    {
         let dot = DOTEncoder().encode(graph)
-        return try render(dot: dot, to: format)
+        render(dot: dot, to: format, on: queue, completion: completion)
     }
 
     /**
@@ -67,32 +75,44 @@ public class Renderer {
         - format: The output format.
      - Throws: `Error` if GraphViz is unable to render.
      */
-    public func render(dot: String, to format: Format) throws -> Data {
-        let context = gvContext()
-        defer { gvFreeContext(context)}
+    public func render(dot: String,
+                       to format: Format,
+                       on queue: DispatchQueue = .main,
+                       completion: (@escaping (Result<Data, Swift.Error>) -> Void))
+    {
+        let options = self.options
+        let layout = self.layout
 
-        let graph = try dot.withCString { cString in
-            try attempt { agmemread(cString) }
+        Renderer.queue.async {
+            let result = Result { () throws -> Data in
+                let context = gvContext()
+                defer { gvFreeContext(context)}
+
+                let graph = try dot.withCString { cString in
+                    try attempt { agmemread(cString) }
+                }
+
+                if options.contains(.removeEdgesImpliedByTransitivity) {
+                    try attempt { gvToolTred(graph) }
+                }
+
+                try layout.rawValue.withCString { cString in
+                    try attempt { gvLayout(context, graph, cString) }
+                }
+                defer { gvFreeLayout(context, graph) }
+
+                var data: UnsafeMutablePointer<Int8>?
+                var length: UInt32 = 0
+                try format.rawValue.withCString { cString in
+                    try attempt { gvRenderData(context, graph, cString, &data, &length) }
+                }
+                defer { gvFreeRenderData(data) }
+                guard let bytes = data else { return Data() }
+
+                return Data(bytes: UnsafeRawPointer(bytes), count: Int(length))
+            }
+
+            completion(result)
         }
-
-        if options.contains(.removeEdgesImpliedByTransitivity) {
-            try attempt { gvToolTred(graph) }
-        }
-
-        try layout.rawValue.withCString { cString in
-            try attempt { gvLayout(context, graph, cString) }
-        }
-        defer { gvFreeLayout(context, graph) }
-
-        var data: UnsafeMutablePointer<Int8>?
-        var length: UInt32 = 0
-        try format.rawValue.withCString { cString in
-            try attempt { gvRenderData(context, graph, cString, &data, &length) }
-        }
-        defer { gvFreeRenderData(data) }
-
-        guard let bytes = data else { return Data() }
-
-        return Data(bytes: UnsafeRawPointer(bytes), count: Int(length))
     }
 }
