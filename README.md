@@ -26,9 +26,14 @@ var b_c = Edge(from: b, to: c)
 b_c.constraint = false
 graph.append(b_c)
 
-// Render image using dot layout algorithm
-let data = try! DOTRenderer(using: .dot, to: .svg).render(graph: graph)
-let svg = String(data: data, encoding: .utf8)!
+// Render image to SVG using dot layout algorithm
+graph.render(using: .dot, to: .svg) { result in 
+  guard .success(let data) = result,
+        let svg = String(data: data, encoding: .utf8)
+  else { return }
+
+  print(svg)
+}
 ```
 
 <img src="https://user-images.githubusercontent.com/7659/76256368-108d1600-620d-11ea-9263-d3ca3cc68d8d.png" alt="Example GraphViz Output" width="150" align="right">
@@ -42,9 +47,8 @@ digraph {
 ```
 
 > **Note**:
-> The `render(using:to:)` method requires that
-> the GraphViz binary corresponding to the specified layout algorithm
-> is accessible from the current `$PATH`.
+> `render(using:to:)` and related methods require
+> GraphViz to be installed on your system.
 
 ### Using Function Builders, Custom Operators, and Fluent Attribute Setters
 
