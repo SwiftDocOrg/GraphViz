@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed renderer to use `libgraphviz` instead of spawning separate processes.
+  #13 by @mattt.
+
 ## [0.2.0] - 2020-11-17
 
 ### Added
