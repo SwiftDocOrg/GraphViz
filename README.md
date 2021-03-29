@@ -14,7 +14,6 @@ A Swift package for working with [GraphViz][graphviz].
 
 ```swift
 import GraphViz
-import DOT
 
 var graph = Graph(directed: true)
 
@@ -49,12 +48,8 @@ digraph {
 
 ### Using Function Builders, Custom Operators, and Fluent Attribute Setters
 
-To use the following interface,
-add "GraphVizBuilder" to your package's dependencies
-and replace `import GraphViz` with `import GraphVizBuilder` as needed.
-
 ```swift
-import GraphVizBuilder
+import GraphViz
 
 let graph = Graph(directed: true) {
     "a" --> "b"
