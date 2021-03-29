@@ -37,6 +37,6 @@ let package = Package(
             dependencies: ["Core", "DOT", "Clibgraphviz"]),
         .testTarget(
             name: "GraphVizTests",
-            dependencies: ["GraphViz", "DOT", "Tools"]),
+            dependencies: ["Core", "DOT", "Builder", "Tools"]),
     ]
 )
