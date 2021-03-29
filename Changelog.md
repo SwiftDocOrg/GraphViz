@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed renderer to use `libgraphviz` instead of spawning separate processes.
   #13 by @mattt.
+- Changed package to produce a single library named `GraphViz` so that
+  `Dot`, `Tools`, and `GraphVizBuilder` need not be imported separately anymore.
+  #15 by @mattt.
 
 ## [0.2.0] - 2020-11-17
 
