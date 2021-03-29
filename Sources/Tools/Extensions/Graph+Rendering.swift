@@ -1,5 +1,5 @@
 import Foundation
-import GraphViz
+import Core
 
 extension Graph {
     /**

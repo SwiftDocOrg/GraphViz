@@ -1,5 +1,5 @@
 import XCTest
-@testable import GraphViz
+@testable import Core
 @testable import DOT
 @testable import Tools
 

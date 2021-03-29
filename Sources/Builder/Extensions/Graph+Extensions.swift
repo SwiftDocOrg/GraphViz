@@ -1,4 +1,4 @@
-import GraphViz
+import Core
 
 extension Graph {
     typealias Fragment = GraphBuilder.Fragment
