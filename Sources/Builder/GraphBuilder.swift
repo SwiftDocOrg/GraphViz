@@ -1,4 +1,4 @@
-import GraphViz
+import Core
 
 public protocol GraphMember {}
 

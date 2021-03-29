@@ -1,5 +1,5 @@
 import XCTest
-import GraphViz
+import Core
 @testable import DOT
 
 final class NodeTests: XCTestCase {

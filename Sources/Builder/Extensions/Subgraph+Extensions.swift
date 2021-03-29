@@ -1,4 +1,4 @@
-import GraphViz
+import Core
 
 extension Subgraph {
     typealias Fragment = SubgraphBuilder.Fragment

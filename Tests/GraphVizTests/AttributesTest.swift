@@ -1,5 +1,5 @@
 import XCTest
-@testable import GraphViz
+@testable import Core
 
 final class AttributesTests: XCTestCase {
     func testGraphAttributesCompleteness() {

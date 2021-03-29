@@ -1,5 +1,5 @@
-import GraphViz
 import Foundation
+import Core
 
 protocol DOTRepresentable {
     func representation(in graph: Graph) -> String?
