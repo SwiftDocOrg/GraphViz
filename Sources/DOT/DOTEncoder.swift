@@ -1,4 +1,4 @@
-import Core
+import GraphVizCore
 
 /// Creates DOT language representations of GraphViz graphs.
 ///

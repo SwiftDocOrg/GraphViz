@@ -1,5 +1,5 @@
 import XCTest
-import Core
+import GraphVizCore
 import DOT
 
 final class GraphTests: XCTestCase {

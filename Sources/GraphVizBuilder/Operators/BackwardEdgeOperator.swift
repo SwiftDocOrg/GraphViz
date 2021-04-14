@@ -1,4 +1,4 @@
-import Core
+import GraphVizCore
 
 infix operator <-- : AdditionPrecedence
 

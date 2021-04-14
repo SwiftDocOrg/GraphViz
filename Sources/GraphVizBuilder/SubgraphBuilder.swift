@@ -1,4 +1,4 @@
-import Core
+import GraphVizCore
 
 public protocol SubgraphMember {}
 

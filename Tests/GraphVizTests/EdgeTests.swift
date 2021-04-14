@@ -1,5 +1,5 @@
 import XCTest
-import Core
+import GraphVizCore
 @testable import DOT
 
 final class EdgeTests: XCTestCase {

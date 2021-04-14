@@ -1,10 +1,10 @@
-import Core
+import GraphVizCore
 
-extension Subgraph {
-    typealias Fragment = SubgraphBuilder.Fragment
+extension Graph {
+    typealias Fragment = GraphBuilder.Fragment
 
-    public init(id: String? = nil, @SubgraphBuilder _ builder: () -> SubgraphMember) {
-        self.init(id: id)
+    public init(directed: Bool = false, strict: Bool = false, @GraphBuilder _ builder: () -> GraphMember) {
+        self.init(directed: directed, strict: strict)
         append(typeErased: builder())
     }
 
@@ -14,10 +14,12 @@ extension Subgraph {
         }
     }
 
-    private mutating func append(typeErased member: SubgraphMember) {
+    private mutating func append(typeErased member: GraphMember) {
         switch member {
         case let fragment as Fragment:
             append(fragment)
+        case let subgraph as Subgraph:
+            append(subgraph)
         case let node as Node:
             append(node)
         case let edge as Edge:
@@ -37,8 +39,4 @@ extension Subgraph {
             }
         }
     }
-}
-
-public func Cluster(@SubgraphBuilder _ builder: () -> SubgraphMember) -> Subgraph {
-    return Subgraph(id: "cluster", builder)
 }

@@ -1,7 +1,7 @@
 import Foundation
 import Dispatch
 
-import Core
+import GraphVizCore
 import DOT
 import Clibgraphviz
 

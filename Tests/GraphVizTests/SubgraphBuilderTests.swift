@@ -1,7 +1,7 @@
 import XCTest
-import Core
+import GraphVizCore
 @testable import DOT
-@testable import Builder
+@testable import GraphVizBuilder
 
 // Workaround for "error: ambiguous reference to member '-->'" on Swift 5.1
 #if swift(>=5.2)
