@@ -1,4 +1,4 @@
-import Core
+import GraphVizCore
 
 extension Edge {
     public subscript<T>(dynamicMember member: WritableKeyPath<Attributes, T>) -> (T) -> Self {

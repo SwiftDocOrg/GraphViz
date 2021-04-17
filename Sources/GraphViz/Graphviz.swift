@@ -1,4 +1,4 @@
-@_exported import Core
-@_exported import DOT
-@_exported import Builder
-@_exported import Tools
+@_exported import GraphVizCore
+@_exported import GraphVizDOT
+@_exported import GraphVizBuilder
+@_exported import GraphVizTools
