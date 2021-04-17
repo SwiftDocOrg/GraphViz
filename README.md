@@ -81,6 +81,24 @@ $ brew install graphviz
 $ sudo apt-get install graphviz
 ```
 
+> **Important**:
+> If you add GraphViz to your macOS app
+> and installed system dependencies using Homebrew,
+> Xcode may emit an error message like the following:
+>
+> ```
+> Warning: Could not load "/usr/lib/graphviz/libgvplugin_gdk.so.6"
+> It was found, so perhaps one of its dependents was not. Try ldd.
+> ```
+>
+> One solution is to run the following commands to sign the dependencies
+> (replacing `MyName (MyTeam)` with your developer account name and team name):
+>
+> ```terminal
+> $ codesign -f -s "Apple Development: MyName (MyTeam)" /usr/local/opt/*/lib/*.dylib
+> $ codesign -f -s "Apple Development: MyName (MyTeam)" /usr/local/Cellar/*/*/lib/*.dylib
+> ```
+
 ### Swift Package Manager
 
 Add the GraphViz package to your target dependencies in `Package.swift`:

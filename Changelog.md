@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added note in README discussing a possible issues and solution
+  related to signing system dependencies in macOS apps.
+  #19 by @sstadelman and @mattt. 
+
 ## [0.4.0] - 2021-04-17
 
 ### Changed
