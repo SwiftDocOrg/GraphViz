@@ -1,6 +1,5 @@
 import XCTest
-import GraphVizCore
-@testable import GraphVizDOT
+@testable import GraphViz
 
 final class SubgraphTests: XCTestCase {
     let encoder = DOTEncoder()

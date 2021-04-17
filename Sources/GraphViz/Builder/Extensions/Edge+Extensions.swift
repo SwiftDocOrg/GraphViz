@@ -1,6 +1,4 @@
-import GraphVizCore
-
-extension Node {
+extension Edge {
     public subscript<T>(dynamicMember member: WritableKeyPath<Attributes, T>) -> (T) -> Self {
         get {
             var mutableSelf = self

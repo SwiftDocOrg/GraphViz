@@ -22,25 +22,9 @@ let package = Package(
         ]),
         .target(
             name: "GraphViz",
-            dependencies: ["GraphVizCore", "GraphVizDOT", "GraphVizBuilder", "GraphVizTools"]),
-        .target(
-            name: "GraphVizCore",
-            dependencies: [],
-            path: "Sources/Core"),
-        .target(
-            name: "GraphVizDOT",
-            dependencies: ["GraphVizCore"],
-            path: "Sources/DOT"),
-        .target(
-            name: "GraphVizBuilder",
-            dependencies: ["GraphVizCore"],
-            path: "Sources/Builder"),
-        .target(
-            name: "GraphVizTools",
-            dependencies: ["GraphVizCore", "GraphVizDOT", "Clibgraphviz"],
-            path: "Sources/Tools"),
+            dependencies: ["Clibgraphviz"]),
         .testTarget(
             name: "GraphVizTests",
-            dependencies: ["GraphVizCore", "GraphVizDOT", "GraphVizBuilder", "GraphVizTools"]),
+            dependencies: ["GraphViz"]),
     ]
 )

@@ -1,5 +1,3 @@
-import GraphVizCore
-
 public protocol GraphMember {}
 
 extension Subgraph: GraphMember {}

@@ -1,5 +1,3 @@
-import GraphVizCore
-
 extension Graph {
     typealias Fragment = GraphBuilder.Fragment
 

@@ -1,5 +1,3 @@
-import GraphVizCore
-
 infix operator --- : AdditionPrecedence
 
 extension Node {

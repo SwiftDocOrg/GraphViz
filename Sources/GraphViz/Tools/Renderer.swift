@@ -1,8 +1,6 @@
 import Foundation
 import Dispatch
 
-import GraphVizCore
-import GraphVizDOT
 import Clibgraphviz
 
 /**
