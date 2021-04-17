@@ -8,7 +8,7 @@ A Swift package for working with [GraphViz][graphviz].
 ## Requirements
 
 - Swift 5.2+
-- GraphViz _(only for rendering)_
+- GraphViz
 
 ## Usage
 
@@ -69,6 +69,18 @@ let graph = Graph(directed: true) {
 
 ## Installation
 
+### System Dependencies
+
+You can install GraphViz on your system by running the following command:
+
+```terminal
+# macOS
+$ brew install graphviz
+
+# Linux (Ubuntu)
+$ sudo apt-get install graphviz
+```
+
 ### Swift Package Manager
 
 Add the GraphViz package to your target dependencies in `Package.swift`:
@@ -94,19 +106,6 @@ targets: [
 .target(
     name: "YourTarget",
     dependencies: ["GraphViz"]),
-```
-
-To render graphs to SVG, PNG, and other formats,
-you must have GraphViz executables (e.g. `dot`) installed on your system
-and accessible from `$PATH`.
-You can install GraphViz from the command line:
-
-```terminal
-# macOS
-$ brew install graphviz
-
-# Linux (Ubuntu)
-$ sudo apt-get install graphviz
 ```
 
 ## License
