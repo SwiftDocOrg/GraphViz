@@ -1,7 +1,5 @@
 import XCTest
-@testable import Core
-@testable import DOT
-@testable import Tools
+@testable import GraphViz
 
 final class RenderingTests: XCTestCase {
     let encoder = DOTEncoder()

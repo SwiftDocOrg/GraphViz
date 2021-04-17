@@ -1,6 +1,5 @@
 import XCTest
-import Core
-@testable import DOT
+@testable import GraphViz
 
 final class EdgeTests: XCTestCase {
     let encoder = DOTEncoder()

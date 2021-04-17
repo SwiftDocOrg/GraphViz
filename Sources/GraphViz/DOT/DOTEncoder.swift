@@ -1,5 +1,3 @@
-import Core
-
 /// Creates DOT language representations of GraphViz graphs.
 ///
 /// For more information about the DOT language,

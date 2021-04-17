@@ -1,10 +1,8 @@
-import Core
+extension Subgraph {
+    typealias Fragment = SubgraphBuilder.Fragment
 
-extension Graph {
-    typealias Fragment = GraphBuilder.Fragment
-
-    public init(directed: Bool = false, strict: Bool = false, @GraphBuilder _ builder: () -> GraphMember) {
-        self.init(directed: directed, strict: strict)
+    public init(id: String? = nil, @SubgraphBuilder _ builder: () -> SubgraphMember) {
+        self.init(id: id)
         append(typeErased: builder())
     }
 
@@ -14,12 +12,10 @@ extension Graph {
         }
     }
 
-    private mutating func append(typeErased member: GraphMember) {
+    private mutating func append(typeErased member: SubgraphMember) {
         switch member {
         case let fragment as Fragment:
             append(fragment)
-        case let subgraph as Subgraph:
-            append(subgraph)
         case let node as Node:
             append(node)
         case let edge as Edge:
@@ -39,4 +35,8 @@ extension Graph {
             }
         }
     }
+}
+
+public func Cluster(@SubgraphBuilder _ builder: () -> SubgraphMember) -> Subgraph {
+    return Subgraph(id: "cluster", builder)
 }

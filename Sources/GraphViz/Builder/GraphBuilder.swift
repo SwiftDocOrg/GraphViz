@@ -1,5 +1,3 @@
-import Core
-
 public protocol GraphMember {}
 
 extension Subgraph: GraphMember {}

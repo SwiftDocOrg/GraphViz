@@ -1,8 +1,6 @@
 import Foundation
 import Dispatch
 
-import Core
-
 extension Graph {
     /**
      Renders the graph using the specified layout algorithm to the desired output format.

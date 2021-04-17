@@ -1,5 +1,3 @@
-import Core
-
 infix operator <-> : AdditionPrecedence
 
 extension Node {

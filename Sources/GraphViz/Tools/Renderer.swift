@@ -1,8 +1,6 @@
 import Foundation
 import Dispatch
 
-import Core
-import DOT
 import Clibgraphviz
 
 /**
