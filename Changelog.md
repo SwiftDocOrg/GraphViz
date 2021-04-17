@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed package to consolidate everything into a single `GraphViz` module.
+  #18 by @mattt.
+
 ## [0.3.0] - 2021-03-29
 
 ### Changed
