@@ -3,6 +3,25 @@
 
 import PackageDescription
 
+#if os(Windows)
+let systemLibraries: [Target] = [
+    .systemLibrary(
+        name: "Clibgraphviz"
+    )
+]
+#else
+let systemLibraries: [Target] = [
+    .systemLibrary(
+        name: "Clibgraphviz",
+        pkgConfig: "libcgraph",
+        providers: [
+          .brew(["graphviz"]),
+          .apt(["graphviz-dev"]),
+        ]
+    ),
+]
+#endif
+
 let package = Package(
     name: "GraphViz",
     products: [
@@ -15,11 +34,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],
-    targets: [
-        .systemLibrary(name: "Clibgraphviz", pkgConfig: "libcgraph", providers: [
-            .brew(["graphviz"]),
-            .apt(["graphviz-dev"])
-        ]),
+    targets: systemLibraries + [
         .target(
             name: "GraphViz",
             dependencies: ["Clibgraphviz"]),
