@@ -26,6 +26,8 @@ public class Renderer {
          a preprocessor to dot to reduce clutter in dense layouts.
 
          Undirected graphs are silently ignored.
+
+         - Important: This functionality isn't available on Windows.
          */
         static let removeEdgesImpliedByTransitivity = Options(rawValue: 1 << 0)
     }
@@ -90,9 +92,11 @@ public class Renderer {
                     try attempt { agmemread(cString) }
                 }
 
+                #if !os(Windows)
                 if options.contains(.removeEdgesImpliedByTransitivity) {
                     try attempt { gvToolTred(graph) }
                 }
+                #endif
 
                 try layout.rawValue.withCString { cString in
                     try attempt { gvLayout(context, graph, cString) }
