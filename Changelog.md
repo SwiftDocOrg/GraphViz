@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2021-05-03
+
 ### Added
 
+- Added support for Windows.
+  #20, #22 by @compnerd.
 - Added note in README discussing a possible issues and solution
   related to signing system dependencies in macOS apps.
-  #19 by @sstadelman and @mattt. 
+  #19 by @sstadelman and @mattt.
 
 ## [0.4.0] - 2021-04-17
 
@@ -125,7 +129,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release.
 
-[unreleased]: https://github.com/SwiftDocOrg/GraphViz/compare/0.4.0...main
+[unreleased]: https://github.com/SwiftDocOrg/GraphViz/compare/0.4.1...main
+[0.4.1]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.4.1
 [0.4.0]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.4.0
 [0.3.0]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.3.0
 [0.2.0]: https://github.com/SwiftDocOrg/GraphViz/releases/tag/0.2.0
